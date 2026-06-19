@@ -1,5 +1,5 @@
 CREATE TABLE companies (
-    id INTEGER PRIMARY KEY,
+    id TEXT PRIMARY KEY,
     company_logo TEXT,
     company_name TEXT,
     chart_link TEXT,
@@ -56,27 +56,28 @@ CREATE TABLE cashflow (
     financing_activity REAL,
     net_cash_flow REAL
 );
+
 CREATE TABLE analysis (
     id INTEGER PRIMARY KEY,
     company_id TEXT,
-    metric TEXT,
-    value REAL,
-    remarks TEXT,
-    category TEXT
+    compounded_sales_growth REAL,
+    compounded_profit_growth REAL,
+    stock_price_cagr REAL,
+    roe REAL
 );
 
 CREATE TABLE documents (
     id INTEGER PRIMARY KEY,
     company_id TEXT,
-    document_name TEXT,
-    document_link TEXT
+    year TEXT,
+    annual_report TEXT
 );
 
 CREATE TABLE prosandcons (
     id INTEGER PRIMARY KEY,
     company_id TEXT,
-    type TEXT,
-    description TEXT
+    pros TEXT,
+    cons TEXT
 );
 
 CREATE TABLE financial_ratios (
@@ -84,14 +85,14 @@ CREATE TABLE financial_ratios (
     company_id TEXT,
     year TEXT,
     net_profit_margin_pct REAL,
-    operating_margin_pct REAL,
-    roce_pct REAL,
-    debt_equity REAL,
+    operating_profit_margin_pct REAL,
+    return_on_equity_pct REAL,
+    debt_to_equity REAL,
     interest_coverage REAL,
-    current_ratio REAL,
     asset_turnover REAL,
-    roe_pct REAL,
-    eps REAL,
+    free_cash_flow_cr REAL,
+    capex_cr REAL,
+    earnings_per_share REAL,
     book_value_per_share REAL,
     dividend_payout_ratio_pct REAL,
     total_debt_cr REAL,
