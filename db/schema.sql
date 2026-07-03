@@ -28,7 +28,8 @@ CREATE TABLE profitandloss (
     tax_percentage REAL,
     net_profit REAL,
     eps REAL,
-    dividend_payout REAL
+    dividend_payout REAL,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE balancesheet (
@@ -44,7 +45,8 @@ CREATE TABLE balancesheet (
     cwip REAL,
     investments REAL,
     other_asset REAL,
-    total_assets REAL
+    total_assets REAL,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE cashflow (
@@ -54,7 +56,8 @@ CREATE TABLE cashflow (
     operating_activity REAL,
     investing_activity REAL,
     financing_activity REAL,
-    net_cash_flow REAL
+    net_cash_flow REAL,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE analysis (
@@ -63,21 +66,24 @@ CREATE TABLE analysis (
     compounded_sales_growth REAL,
     compounded_profit_growth REAL,
     stock_price_cagr REAL,
-    roe REAL
+    roe REAL,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE documents (
     id INTEGER PRIMARY KEY,
     company_id TEXT,
     year TEXT,
-    annual_report TEXT
+    annual_report TEXT,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE prosandcons (
     id INTEGER PRIMARY KEY,
     company_id TEXT,
     pros TEXT,
-    cons TEXT
+    cons TEXT,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE financial_ratios (
@@ -96,7 +102,8 @@ CREATE TABLE financial_ratios (
     book_value_per_share REAL,
     dividend_payout_ratio_pct REAL,
     total_debt_cr REAL,
-    cash_from_operations_cr REAL
+    cash_from_operations_cr REAL,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE stock_prices (
@@ -108,7 +115,8 @@ CREATE TABLE stock_prices (
     low_price REAL,
     close_price REAL,
     volume INTEGER,
-    adjusted_close REAL
+    adjusted_close REAL,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE sectors (
@@ -117,14 +125,16 @@ CREATE TABLE sectors (
     broad_sector TEXT,
     sub_sector TEXT,
     index_weight_pct REAL,
-    market_cap_category TEXT
+    market_cap_category TEXT,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE peer_groups (
     id INTEGER PRIMARY KEY,
     peer_group_name TEXT,
     company_id TEXT,
-    is_benchmark BOOLEAN
+    is_benchmark BOOLEAN,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE market_cap (
@@ -136,5 +146,6 @@ CREATE TABLE market_cap (
     pe_ratio REAL,
     pb_ratio REAL,
     ev_ebitda REAL,
-    dividend_yield_pct REAL
+    dividend_yield_pct REAL,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
 );

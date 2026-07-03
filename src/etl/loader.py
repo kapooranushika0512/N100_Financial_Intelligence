@@ -24,18 +24,58 @@ def load_excel(file_path, header_row):
 
         # normalize company ids
         if "company_id" in df.columns:
-            df["company_id"] = df["company_id"].apply(normalize_ticker)
+            df["company_id"] = df["company_id"].apply(
+                normalize_ticker
+            )
 
         # normalize year column
         if "year" in df.columns:
-            df["year"] = df["year"].apply(normalize_year)
+            df["year"] = df["year"].apply(
+                normalize_year
+            )
 
-        print(f"Loaded {file_path.name}: {df.shape}")
+        # DQ-02: remove duplicate company-year rows
+        duplicates_removed = 0
+
+        if (
+            "company_id" in df.columns
+            and "year" in df.columns
+        ):
+            before = len(df)
+
+            df = df.drop_duplicates(
+                subset=["company_id", "year"],
+                keep="last"
+            )
+
+            duplicates_removed = before - len(df)
+
+        # DQ-06: remove non-positive sales rows
+        sales_removed = 0
+
+        if (
+            file_path.stem == "profitandloss"
+            and "sales" in df.columns
+        ):
+            before = len(df)
+
+            df = df[df["sales"] > 0]
+
+            sales_removed = before - len(df)
+
+        print(
+            f"Loaded {file_path.name}: "
+            f"{df.shape} "
+            f"(removed {duplicates_removed} duplicates, "
+            f"{sales_removed} invalid sales rows)"
+        )
 
         return df
 
     except Exception as e:
-        print(f"Error loading {file_path.name}: {e}")
+        print(
+            f"Error loading {file_path.name}: {e}"
+        )
         return None
 
 
