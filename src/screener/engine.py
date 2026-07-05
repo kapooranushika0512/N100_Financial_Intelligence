@@ -1,7 +1,7 @@
 import sqlite3
 import yaml
 import pandas as pd
-
+from src.screener.scoring import calculate_score
 DB_PATH = "db/nifty100.db"
 CONFIG_PATH = "config/screener_config.yaml"
 
@@ -23,6 +23,7 @@ def load_ratios():
     )
 
     conn.close()
+    df = calculate_score(df)
 
     return df
 
