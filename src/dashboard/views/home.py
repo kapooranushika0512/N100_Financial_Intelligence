@@ -7,6 +7,7 @@ from utils.db import (
     get_sectors
 )
 
+
 def show():
 
     st.title("🏠 Dashboard Overview")
