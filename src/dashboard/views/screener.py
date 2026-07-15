@@ -9,23 +9,14 @@ from utils.db import (
     get_market_cap_latest,
 )
 
+
 def load_data():
 
     ratios = get_latest_ratios()
-
     analysis = get_analysis()
-
     companies = get_companies()
-
     sectors = get_sectors()
-
     market = get_market_cap_latest()
-
-    print("Ratios:", len(ratios), ratios["company_id"].nunique())
-    print("Analysis:", len(analysis), analysis["company_id"].nunique())
-    print("Companies:", len(companies), companies["id"].nunique())
-    print("Sectors:", len(sectors), sectors["company_id"].nunique())
-    print("Market:", len(market), market["company_id"].nunique())
 
     companies = companies.rename(
         columns={"id": "company_id"}
@@ -93,10 +84,9 @@ def load_data():
         + df["compounded_profit_growth"].fillna(0) * 0.20
     )
 
-    print("Rows:", len(df))
-    print("Unique companies:", df["company_id"].nunique())
-
     return df
+
+
 def preset_filters():
 
     st.sidebar.subheader("⭐ Presets")
@@ -115,6 +105,8 @@ def preset_filters():
     )
 
     return preset
+
+
 def sidebar_filters(df):
 
     preset = preset_filters()
@@ -201,6 +193,8 @@ def sidebar_filters(df):
     )
 
     return filters
+
+
 def apply_filters(df, filters):
 
     filtered = df.copy()
@@ -216,59 +210,49 @@ def apply_filters(df, filters):
     filtered["dividend_yield_pct"] = filtered["dividend_yield_pct"].fillna(0)
     filtered["interest_coverage"] = filtered["interest_coverage"].fillna(0)
 
-    print("Start:", len(filtered))
-
     filtered = filtered[
         filtered["return_on_equity_pct"] >= filters["roe"]
     ]
-    print("After ROE:", len(filtered))
 
     filtered = filtered[
         filtered["debt_to_equity"] <= filters["de"]
     ]
-    print("After Debt/Equity:", len(filtered))
 
     filtered = filtered[
         filtered["free_cash_flow_cr"] >= filters["fcf"]
     ]
-    print("After FCF:", len(filtered))
 
     filtered = filtered[
         filtered["compounded_sales_growth"] >= filters["sales"]
     ]
-    print("After Revenue CAGR:", len(filtered))
 
     filtered = filtered[
         filtered["compounded_profit_growth"] >= filters["profit"]
     ]
-    print("After PAT CAGR:", len(filtered))
 
     filtered = filtered[
         filtered["operating_profit_margin_pct"] >= filters["opm"]
     ]
-    print("After OPM:", len(filtered))
 
     filtered = filtered[
         filtered["pe_ratio"] <= filters["pe"]
     ]
-    print("After PE:", len(filtered))
 
     filtered = filtered[
         filtered["pb_ratio"] <= filters["pb"]
     ]
-    print("After PB:", len(filtered))
 
     filtered = filtered[
         filtered["dividend_yield_pct"] >= filters["dividend"]
     ]
-    print("After Dividend:", len(filtered))
 
     filtered = filtered[
         filtered["interest_coverage"] >= filters["icr"]
     ]
-    print("After Interest Coverage:", len(filtered))
 
     return filtered
+
+
 def render_table(df):
 
     st.subheader("📊 Filtered Companies")
@@ -302,6 +286,8 @@ def render_table(df):
         width="stretch",
         hide_index=True,
     )
+
+
 def csv_download(df):
 
     csv = df.to_csv(index=False).encode("utf-8")
@@ -312,6 +298,8 @@ def csv_download(df):
         file_name="screener_results.csv",
         mime="text/csv",
     )
+
+
 def show():
 
     st.title("🔎 Stock Screener")
@@ -320,7 +308,10 @@ def show():
 
     filters = sidebar_filters(df)
 
-    filtered = apply_filters(df, filters)
+    filtered = apply_filters(
+        df,
+        filters,
+    )
 
     render_table(filtered)
 

@@ -123,7 +123,7 @@ def show():
 
         st.plotly_chart(
             fig,
-            use_container_width=True
+            width="stretch",
         )
 
     # -----------------------------
@@ -151,7 +151,7 @@ def show():
 
         st.dataframe(
             top5,
-            use_container_width=True,
+            width="stretch",
             hide_index=True
         )
 
