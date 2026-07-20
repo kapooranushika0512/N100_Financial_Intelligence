@@ -1,0 +1,93 @@
+company_id,pros,cons,score,recommendation,confidence,top_pros,top_cons
+INFY,8,1,6.35,Strong Buy,0.95,High ROE (29.8%); Low debt levels,Requires further financial monitoring
+TCS,8,1,6.35,Strong Buy,0.95,High ROE (50.9%); Low debt levels,Requires further financial monitoring
+ABB,7,1,5.45,Strong Buy,0.95,High ROE (32.5%); Low debt levels,Requires further financial monitoring
+ASIANPAINT,7,1,5.45,Strong Buy,0.95,High ROE (29.7%); Low debt levels,Requires further financial monitoring
+NESTLEIND,7,1,5.45,Strong Buy,0.95,High ROE (117.8%); Low debt levels,Requires further financial monitoring
+COALINDIA,6,1,4.65,Strong Buy,0.95,High ROE (45.2%); Low debt levels,Requires further financial monitoring
+EICHERMOT,6,1,4.65,Strong Buy,0.95,High ROE (22.2%); Low debt levels,Requires further financial monitoring
+HINDUNILVR,6,1,4.65,Strong Buy,0.95,High ROE (20.1%); Low debt levels,Requires further financial monitoring
+IRCTC,6,1,4.65,Strong Buy,0.95,High ROE (34.4%); Low debt levels,Requires further financial monitoring
+ITC,6,1,4.65,Strong Buy,0.95,High ROE (27.9%); Low debt levels,Requires further financial monitoring
+BAJAJ-AUTO,6,1,4.55,Strong Buy,0.95,High ROE (26.6%); Low debt levels,Requires further financial monitoring
+HAL,6,1,4.55,Strong Buy,0.95,High ROE (3816.6%); Healthy net profit margin,Requires further financial monitoring
+HCLTECH,6,1,4.55,Strong Buy,0.95,High ROE (23.0%); Low debt levels,Requires further financial monitoring
+HEROMOTOCO,6,1,4.55,Strong Buy,0.95,High ROE (21.1%); Low debt levels,Requires further financial monitoring
+INDIGO,6,1,4.55,Strong Buy,0.95,High ROE (892.6%); Low debt levels,Requires further financial monitoring
+PIDILITIND,6,1,4.55,Strong Buy,0.95,High ROE (20.8%); Low debt levels,Requires further financial monitoring
+ADANIPOWER,5,1,3.75,Strong Buy,0.95,High ROE (48.3%); Healthy net profit margin,Requires further financial monitoring
+TORNTPHARM,5,1,3.75,Strong Buy,0.95,High ROE (24.1%); Healthy net profit margin,Requires further financial monitoring
+BAJAJHLDNG,5,1,3.7,Strong Buy,0.95,Low debt levels; Healthy net profit margin,Requires further financial monitoring
+CIPLA,5,1,3.7,Strong Buy,0.95,Low debt levels; Healthy net profit margin,Requires further financial monitoring
+DIVISLAB,5,1,3.7,Strong Buy,0.95,Low debt levels; Healthy net profit margin,Requires further financial monitoring
+DRREDDY,5,1,3.7,Strong Buy,0.95,Low debt levels; Healthy net profit margin,Requires further financial monitoring
+SUNPHARMA,5,1,3.7,Strong Buy,0.95,Low debt levels; Healthy net profit margin,Requires further financial monitoring
+LTIM,5,1,3.65,Strong Buy,0.95,High ROE (22.9%); Low debt levels,Requires further financial monitoring
+TRENT,5,1,3.65,Strong Buy,0.95,High ROE (36.3%); Low debt levels,Requires further financial monitoring
+BEL,5,1,3.55,Strong Buy,0.95,High ROE (4744.1%); Healthy net profit margin,Negative free cash flow
+DLF,5,1,3.55,Strong Buy,0.95,Low debt levels; Healthy net profit margin,Low ROE (6.9%)
+JIOFIN,5,1,3.55,Strong Buy,0.95,Low debt levels; Healthy net profit margin,Low ROE (1.1%)
+BOSCHLTD,4,1,2.85,Buy,0.9,High ROE (20.6%); Low debt levels,Requires further financial monitoring
+ADANIPORTS,4,1,2.8,Buy,0.9,Healthy net profit margin; Strong operating margin,Requires further financial monitoring
+ICICIGI,4,1,2.8,Buy,0.9,Low debt levels; Strong operating margin,Requires further financial monitoring
+NHPC,4,1,2.8,Buy,0.9,Healthy net profit margin; Strong operating margin,Requires further financial monitoring
+BRITANNIA,4,1,2.75,Buy,0.9,High ROE (54.1%); Comfortable interest coverage,Requires further financial monitoring
+HDFCBANK,5,2,2.75,Buy,0.9,Healthy net profit margin; Strong operating margin,High debt levels; Low interest coverage
+LT,4,1,2.75,Buy,0.9,High ROE (77.7%); Low debt levels,Requires further financial monitoring
+GAIL,4,1,2.7,Buy,0.9,Low debt levels; Comfortable interest coverage,Requires further financial monitoring
+HAVELLS,4,1,2.7,Buy,0.9,Low debt levels; Comfortable interest coverage,Requires further financial monitoring
+MARUTI,4,1,2.7,Buy,0.9,Low debt levels; Comfortable interest coverage,Requires further financial monitoring
+BPCL,4,1,2.65,Buy,0.9,High ROE (35.5%); Comfortable interest coverage,Weak operating margin
+IOC,4,1,2.65,Buy,0.9,High ROE (23.5%); Comfortable interest coverage,Weak operating margin
+SHREECEM,4,1,2.65,Buy,0.9,Low debt levels; Strong operating margin,Low ROE (8.4%)
+TATAMOTORS,4,1,2.6,Buy,0.9,High ROE (37.5%); Comfortable interest coverage,High debt levels
+TITAN,4,1,2.6,Buy,0.9,High ROE (37.2%); Comfortable interest coverage,High debt levels
+DABUR,3,1,1.9,Hold,0.85,Low debt levels; Comfortable interest coverage,Requires further financial monitoring
+LICI,4,2,1.9,Hold,0.85,High ROE (49.5%); Low debt levels,Weak profitability; Weak operating margin
+ONGC,3,1,1.9,Hold,0.85,Low debt levels; Comfortable interest coverage,Requires further financial monitoring
+SIEMENS,3,1,1.9,Hold,0.85,Low debt levels; Comfortable interest coverage,Requires further financial monitoring
+ULTRACEMCO,3,1,1.9,Hold,0.85,Low debt levels; Comfortable interest coverage,Requires further financial monitoring
+ICICIPRULI,4,2,1.8,Hold,0.85,Low debt levels; Strong operating margin,Low ROE (7.7%); Weak profitability
+JINDALSTEL,3,1,1.8,Hold,0.85,Low debt levels; Strong operating margin,Negative free cash flow
+LODHA,4,2,1.8,Hold,0.85,Low debt levels; Healthy net profit margin,Low ROE (8.9%); Negative free cash flow
+NAUKRI,4,2,1.8,Hold,0.85,Low debt levels; Healthy net profit margin,Low ROE (2.0%); Negative free cash flow
+DMART,4,2,1.75,Hold,0.85,Low debt levels; Comfortable interest coverage,Weak profitability; Weak operating margin
+POWERGRID,3,1,1.75,Hold,0.85,Healthy net profit margin; Strong operating margin,High debt levels
+TATACONSUM,3,1,1.75,Hold,0.85,Low debt levels; Comfortable interest coverage,Low ROE (7.6%)
+APOLLOHOSP,3,1,1.7,Hold,0.85,Comfortable interest coverage; Positive free cash flow,Weak profitability
+HDFCLIFE,3,2,0.95,Hold,0.85,Low debt levels; Strong operating margin,Weak profitability; Negative free cash flow
+AMBUJACEM,2,1,0.9,Hold,0.85,Low debt levels; Comfortable interest coverage,Negative free cash flow
+BAJFINANCE,3,2,0.9,Hold,0.85,Healthy net profit margin; Strong operating margin,High debt levels; Negative free cash flow
+CHOLAFIN,3,2,0.9,Hold,0.85,Healthy net profit margin; Strong operating margin,High debt levels; Negative free cash flow
+HINDALCO,3,2,0.9,Hold,0.85,Strong operating margin; Comfortable interest coverage,Low ROE (9.6%); Weak profitability
+BHARTIARTL,2,1,0.85,Hold,0.85,Strong operating margin; Positive free cash flow,High debt levels
+ICICIBANK,3,2,0.85,Hold,0.85,Healthy net profit margin; Strong operating margin,High debt levels; Low interest coverage
+IRFC,3,2,0.85,Hold,0.85,Healthy net profit margin; Strong operating margin,High debt levels; Low interest coverage
+KOTAKBANK,3,2,0.85,Hold,0.85,Healthy net profit margin; Strong operating margin,High debt levels; Low interest coverage
+MOTHERSON,3,2,0.85,Hold,0.85,Comfortable interest coverage; Positive free cash flow,Weak profitability; Weak operating margin
+NTPC,2,1,0.85,Hold,0.85,Strong operating margin; Positive free cash flow,High debt levels
+RELIANCE,2,1,0.85,Hold,0.85,Comfortable interest coverage; Positive free cash flow,Low ROE (10.0%)
+TECHM,4,3,0.85,Hold,0.85,Low debt levels; Comfortable interest coverage,Low ROE (9.0%); Weak profitability
+SBILIFE,3,3,0.15,Sell,0.8,Low debt levels; Comfortable interest coverage,Weak profitability; Weak operating margin
+BAJAJFINSV,2,2,0.05,Sell,0.8,High ROE (25.9%); Strong operating margin,High debt levels; Negative free cash flow
+PFC,3,3,0.05,Sell,0.8,High ROE (26.2%); Healthy net profit margin,High debt levels; Low interest coverage
+RECLTD,3,3,0.05,Sell,0.8,High ROE (20.4%); Healthy net profit margin,High debt levels; Low interest coverage
+ADANIENSOL,2,2,-0.05,Sell,0.8,Strong operating margin; Positive free cash flow,Low ROE (9.5%); High debt levels
+CANBK,2,2,-0.05,Sell,0.8,Strong operating margin; Positive free cash flow,High debt levels; Low interest coverage
+PNB,2,2,-0.05,Sell,0.8,High ROE (61.3%); Efficient asset utilization,High debt levels; Negative free cash flow
+TATAPOWER,1,1,-0.05,Sell,0.8,Positive free cash flow,High debt levels
+GODREJCP,2,3,-0.85,Sell,0.8,Low debt levels; Strong operating margin,Low ROE (-4.5%); Weak profitability
+AXISBANK,2,3,-0.9,Sell,0.8,Healthy net profit margin; Strong operating margin,High debt levels; Low interest coverage
+BANKBARODA,2,3,-0.9,Sell,0.8,Healthy net profit margin; Strong operating margin,High debt levels; Low interest coverage
+GRASIM,1,2,-0.9,Sell,0.8,Strong operating margin,High debt levels; Negative free cash flow
+INDUSINDBK,2,3,-0.9,Sell,0.8,Healthy net profit margin; Strong operating margin,High debt levels; Low interest coverage
+JSWENERGY,2,3,-0.9,Sell,0.8,Healthy net profit margin; Strong operating margin,Low ROE (8.3%); High debt levels
+SHRIRAMFIN,2,3,-0.9,Sell,0.8,Healthy net profit margin; Strong operating margin,High debt levels; Low interest coverage
+JSWSTEEL,1,2,-1.05,Avoid,0.95,Stable financial performance,High debt levels; Negative free cash flow
+M&M,1,2,-1.05,Avoid,0.95,Stable financial performance,High debt levels; Negative free cash flow
+TVSMOTOR,1,3,-1.7,Avoid,0.95,High ROE (26.2%),High debt levels; Weak profitability
+TATASTEEL,1,3,-1.75,Avoid,0.95,Positive free cash flow,Low ROE (-5.3%); Weak profitability
+ADANIGREEN,1,3,-1.8,Avoid,0.95,Strong operating margin,High debt levels; Low interest coverage
+UNIONBANK,1,3,-1.8,Avoid,0.95,Positive free cash flow,High debt levels; Weak operating margin
+ADANIENT,1,4,-2.8,Avoid,0.95,Stable financial performance,Low ROE (8.5%); High debt levels
+BHEL,1,5,-3.5,Avoid,0.95,Low debt levels,Low ROE (1.1%); Weak profitability
