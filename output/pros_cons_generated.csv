@@ -1,0 +1,492 @@
+company_id,type,reason,confidence
+ABB,Pro,High ROE (32.5%),0.95
+ABB,Pro,Low debt levels,0.9
+ABB,Pro,Healthy net profit margin,0.9
+ABB,Pro,Strong operating margin,0.9
+ABB,Pro,Comfortable interest coverage,0.9
+ABB,Pro,Positive free cash flow,0.85
+ABB,Pro,Efficient asset utilization,0.8
+ABB,Con,Requires further financial monitoring,0.75
+ADANIENSOL,Con,Low ROE (9.5%),0.9
+ADANIENSOL,Con,High debt levels,0.9
+ADANIENSOL,Pro,Strong operating margin,0.9
+ADANIENSOL,Pro,Positive free cash flow,0.85
+ADANIENT,Con,Low ROE (8.5%),0.9
+ADANIENT,Con,High debt levels,0.9
+ADANIENT,Con,Weak profitability,0.85
+ADANIENT,Con,Negative free cash flow,0.9
+ADANIENT,Pro,Stable financial performance,0.75
+ADANIGREEN,Con,High debt levels,0.9
+ADANIGREEN,Pro,Strong operating margin,0.9
+ADANIGREEN,Con,Low interest coverage,0.9
+ADANIGREEN,Con,Negative free cash flow,0.9
+ADANIPORTS,Pro,Healthy net profit margin,0.9
+ADANIPORTS,Pro,Strong operating margin,0.9
+ADANIPORTS,Pro,Comfortable interest coverage,0.9
+ADANIPORTS,Pro,Positive free cash flow,0.85
+ADANIPORTS,Con,Requires further financial monitoring,0.75
+ADANIPOWER,Pro,High ROE (48.3%),0.95
+ADANIPOWER,Pro,Healthy net profit margin,0.9
+ADANIPOWER,Pro,Strong operating margin,0.9
+ADANIPOWER,Pro,Comfortable interest coverage,0.9
+ADANIPOWER,Pro,Positive free cash flow,0.85
+ADANIPOWER,Con,Requires further financial monitoring,0.75
+AMBUJACEM,Pro,Low debt levels,0.9
+AMBUJACEM,Pro,Comfortable interest coverage,0.9
+AMBUJACEM,Con,Negative free cash flow,0.9
+APOLLOHOSP,Con,Weak profitability,0.85
+APOLLOHOSP,Pro,Comfortable interest coverage,0.9
+APOLLOHOSP,Pro,Positive free cash flow,0.85
+APOLLOHOSP,Pro,Efficient asset utilization,0.8
+ASIANPAINT,Pro,High ROE (29.7%),0.95
+ASIANPAINT,Pro,Low debt levels,0.9
+ASIANPAINT,Pro,Healthy net profit margin,0.9
+ASIANPAINT,Pro,Strong operating margin,0.9
+ASIANPAINT,Pro,Comfortable interest coverage,0.9
+ASIANPAINT,Pro,Positive free cash flow,0.85
+ASIANPAINT,Pro,Efficient asset utilization,0.8
+ASIANPAINT,Con,Requires further financial monitoring,0.75
+BAJAJ-AUTO,Pro,High ROE (26.6%),0.95
+BAJAJ-AUTO,Pro,Low debt levels,0.9
+BAJAJ-AUTO,Pro,Healthy net profit margin,0.9
+BAJAJ-AUTO,Pro,Comfortable interest coverage,0.9
+BAJAJ-AUTO,Pro,Positive free cash flow,0.85
+BAJAJ-AUTO,Pro,Efficient asset utilization,0.8
+BAJAJ-AUTO,Con,Requires further financial monitoring,0.75
+AXISBANK,Con,High debt levels,0.9
+AXISBANK,Pro,Healthy net profit margin,0.9
+AXISBANK,Pro,Strong operating margin,0.9
+AXISBANK,Con,Low interest coverage,0.9
+AXISBANK,Con,Negative free cash flow,0.9
+BAJAJFINSV,Pro,High ROE (25.9%),0.95
+BAJAJFINSV,Con,High debt levels,0.9
+BAJAJFINSV,Pro,Strong operating margin,0.9
+BAJAJFINSV,Con,Negative free cash flow,0.9
+BAJAJHLDNG,Pro,Low debt levels,0.9
+BAJAJHLDNG,Pro,Healthy net profit margin,0.9
+BAJAJHLDNG,Pro,Strong operating margin,0.9
+BAJAJHLDNG,Pro,Comfortable interest coverage,0.9
+BAJAJHLDNG,Pro,Positive free cash flow,0.85
+BAJAJHLDNG,Con,Requires further financial monitoring,0.75
+BAJFINANCE,Con,High debt levels,0.9
+BAJFINANCE,Pro,Healthy net profit margin,0.9
+BAJFINANCE,Pro,Strong operating margin,0.9
+BAJFINANCE,Pro,Comfortable interest coverage,0.9
+BAJFINANCE,Con,Negative free cash flow,0.9
+BANKBARODA,Con,High debt levels,0.9
+BANKBARODA,Pro,Healthy net profit margin,0.9
+BANKBARODA,Pro,Strong operating margin,0.9
+BANKBARODA,Con,Low interest coverage,0.9
+BANKBARODA,Con,Negative free cash flow,0.9
+BHARTIARTL,Con,High debt levels,0.9
+BHARTIARTL,Pro,Strong operating margin,0.9
+BHARTIARTL,Pro,Positive free cash flow,0.85
+BEL,Pro,High ROE (4744.1%),0.95
+BEL,Pro,Healthy net profit margin,0.9
+BEL,Pro,Strong operating margin,0.9
+BEL,Pro,Comfortable interest coverage,0.9
+BEL,Con,Negative free cash flow,0.9
+BEL,Pro,Efficient asset utilization,0.8
+BHEL,Con,Low ROE (1.1%),0.9
+BHEL,Pro,Low debt levels,0.9
+BHEL,Con,Weak profitability,0.85
+BHEL,Con,Weak operating margin,0.85
+BHEL,Con,Low interest coverage,0.9
+BHEL,Con,Negative free cash flow,0.9
+BOSCHLTD,Pro,High ROE (20.6%),0.95
+BOSCHLTD,Pro,Low debt levels,0.9
+BOSCHLTD,Pro,Comfortable interest coverage,0.9
+BOSCHLTD,Pro,Positive free cash flow,0.85
+BOSCHLTD,Con,Requires further financial monitoring,0.75
+BPCL,Pro,High ROE (35.5%),0.95
+BPCL,Con,Weak operating margin,0.85
+BPCL,Pro,Comfortable interest coverage,0.9
+BPCL,Pro,Positive free cash flow,0.85
+BPCL,Pro,Efficient asset utilization,0.8
+BRITANNIA,Pro,High ROE (54.1%),0.95
+BRITANNIA,Pro,Comfortable interest coverage,0.9
+BRITANNIA,Pro,Positive free cash flow,0.85
+BRITANNIA,Pro,Efficient asset utilization,0.8
+BRITANNIA,Con,Requires further financial monitoring,0.75
+CANBK,Con,High debt levels,0.9
+CANBK,Pro,Strong operating margin,0.9
+CANBK,Con,Low interest coverage,0.9
+CANBK,Pro,Positive free cash flow,0.85
+CHOLAFIN,Con,High debt levels,0.9
+CHOLAFIN,Pro,Healthy net profit margin,0.9
+CHOLAFIN,Pro,Strong operating margin,0.9
+CHOLAFIN,Pro,Comfortable interest coverage,0.9
+CHOLAFIN,Con,Negative free cash flow,0.9
+CIPLA,Pro,Low debt levels,0.9
+CIPLA,Pro,Healthy net profit margin,0.9
+CIPLA,Pro,Strong operating margin,0.9
+CIPLA,Pro,Comfortable interest coverage,0.9
+CIPLA,Pro,Positive free cash flow,0.85
+CIPLA,Con,Requires further financial monitoring,0.75
+COALINDIA,Pro,High ROE (45.2%),0.95
+COALINDIA,Pro,Low debt levels,0.9
+COALINDIA,Pro,Healthy net profit margin,0.9
+COALINDIA,Pro,Strong operating margin,0.9
+COALINDIA,Pro,Comfortable interest coverage,0.9
+COALINDIA,Pro,Positive free cash flow,0.85
+COALINDIA,Con,Requires further financial monitoring,0.75
+DABUR,Pro,Low debt levels,0.9
+DABUR,Pro,Comfortable interest coverage,0.9
+DABUR,Pro,Positive free cash flow,0.85
+DABUR,Con,Requires further financial monitoring,0.75
+DIVISLAB,Pro,Low debt levels,0.9
+DIVISLAB,Pro,Healthy net profit margin,0.9
+DIVISLAB,Pro,Strong operating margin,0.9
+DIVISLAB,Pro,Comfortable interest coverage,0.9
+DIVISLAB,Pro,Positive free cash flow,0.85
+DIVISLAB,Con,Requires further financial monitoring,0.75
+DLF,Con,Low ROE (6.9%),0.9
+DLF,Pro,Low debt levels,0.9
+DLF,Pro,Healthy net profit margin,0.9
+DLF,Pro,Strong operating margin,0.9
+DLF,Pro,Comfortable interest coverage,0.9
+DLF,Pro,Positive free cash flow,0.85
+DMART,Pro,Low debt levels,0.9
+DMART,Con,Weak profitability,0.85
+DMART,Con,Weak operating margin,0.85
+DMART,Pro,Comfortable interest coverage,0.9
+DMART,Pro,Positive free cash flow,0.85
+DMART,Pro,Efficient asset utilization,0.8
+DRREDDY,Pro,Low debt levels,0.9
+DRREDDY,Pro,Healthy net profit margin,0.9
+DRREDDY,Pro,Strong operating margin,0.9
+DRREDDY,Pro,Comfortable interest coverage,0.9
+DRREDDY,Pro,Positive free cash flow,0.85
+DRREDDY,Con,Requires further financial monitoring,0.75
+EICHERMOT,Pro,High ROE (22.2%),0.95
+EICHERMOT,Pro,Low debt levels,0.9
+EICHERMOT,Pro,Healthy net profit margin,0.9
+EICHERMOT,Pro,Strong operating margin,0.9
+EICHERMOT,Pro,Comfortable interest coverage,0.9
+EICHERMOT,Pro,Positive free cash flow,0.85
+EICHERMOT,Con,Requires further financial monitoring,0.75
+GAIL,Pro,Low debt levels,0.9
+GAIL,Pro,Comfortable interest coverage,0.9
+GAIL,Pro,Positive free cash flow,0.85
+GAIL,Pro,Efficient asset utilization,0.8
+GAIL,Con,Requires further financial monitoring,0.75
+GODREJCP,Con,Low ROE (-4.5%),0.9
+GODREJCP,Pro,Low debt levels,0.9
+GODREJCP,Con,Weak profitability,0.85
+GODREJCP,Pro,Strong operating margin,0.9
+GODREJCP,Con,Negative free cash flow,0.9
+GRASIM,Con,High debt levels,0.9
+GRASIM,Pro,Strong operating margin,0.9
+GRASIM,Con,Negative free cash flow,0.9
+HAL,Pro,High ROE (3816.6%),0.95
+HAL,Pro,Healthy net profit margin,0.9
+HAL,Pro,Strong operating margin,0.9
+HAL,Pro,Comfortable interest coverage,0.9
+HAL,Pro,Positive free cash flow,0.85
+HAL,Pro,Efficient asset utilization,0.8
+HAL,Con,Requires further financial monitoring,0.75
+HAVELLS,Pro,Low debt levels,0.9
+HAVELLS,Pro,Comfortable interest coverage,0.9
+HAVELLS,Pro,Positive free cash flow,0.85
+HAVELLS,Pro,Efficient asset utilization,0.8
+HAVELLS,Con,Requires further financial monitoring,0.75
+HCLTECH,Pro,High ROE (23.0%),0.95
+HCLTECH,Pro,Low debt levels,0.9
+HCLTECH,Pro,Strong operating margin,0.9
+HCLTECH,Pro,Comfortable interest coverage,0.9
+HCLTECH,Pro,Positive free cash flow,0.85
+HCLTECH,Pro,Efficient asset utilization,0.8
+HCLTECH,Con,Requires further financial monitoring,0.75
+HDFCBANK,Con,High debt levels,0.9
+HDFCBANK,Pro,Healthy net profit margin,0.9
+HDFCBANK,Pro,Strong operating margin,0.9
+HDFCBANK,Con,Low interest coverage,0.9
+HDFCBANK,Pro,Positive free cash flow,0.85
+HDFCBANK,Pro,Strong sales CAGR (21.0%),0.95
+HDFCBANK,Pro,Strong profit CAGR (22.0%),0.95
+HDFCLIFE,Pro,Low debt levels,0.9
+HDFCLIFE,Con,Weak profitability,0.85
+HDFCLIFE,Pro,Strong operating margin,0.9
+HDFCLIFE,Pro,Comfortable interest coverage,0.9
+HDFCLIFE,Con,Negative free cash flow,0.9
+HEROMOTOCO,Pro,High ROE (21.1%),0.95
+HEROMOTOCO,Pro,Low debt levels,0.9
+HEROMOTOCO,Pro,Strong operating margin,0.9
+HEROMOTOCO,Pro,Comfortable interest coverage,0.9
+HEROMOTOCO,Pro,Positive free cash flow,0.85
+HEROMOTOCO,Pro,Efficient asset utilization,0.8
+HEROMOTOCO,Con,Requires further financial monitoring,0.75
+HINDALCO,Con,Low ROE (9.6%),0.9
+HINDALCO,Con,Weak profitability,0.85
+HINDALCO,Pro,Strong operating margin,0.9
+HINDALCO,Pro,Comfortable interest coverage,0.9
+HINDALCO,Pro,Positive free cash flow,0.85
+HINDUNILVR,Pro,High ROE (20.1%),0.95
+HINDUNILVR,Pro,Low debt levels,0.9
+HINDUNILVR,Pro,Healthy net profit margin,0.9
+HINDUNILVR,Pro,Strong operating margin,0.9
+HINDUNILVR,Pro,Comfortable interest coverage,0.9
+HINDUNILVR,Pro,Positive free cash flow,0.85
+HINDUNILVR,Con,Requires further financial monitoring,0.75
+ICICIBANK,Con,High debt levels,0.9
+ICICIBANK,Pro,Healthy net profit margin,0.9
+ICICIBANK,Pro,Strong operating margin,0.9
+ICICIBANK,Con,Low interest coverage,0.9
+ICICIBANK,Pro,Positive free cash flow,0.85
+ICICIGI,Pro,Low debt levels,0.9
+ICICIGI,Pro,Strong operating margin,0.9
+ICICIGI,Pro,Comfortable interest coverage,0.9
+ICICIGI,Pro,Positive free cash flow,0.85
+ICICIGI,Con,Requires further financial monitoring,0.75
+ICICIPRULI,Con,Low ROE (7.7%),0.9
+ICICIPRULI,Pro,Low debt levels,0.9
+ICICIPRULI,Con,Weak profitability,0.85
+ICICIPRULI,Pro,Strong operating margin,0.9
+ICICIPRULI,Pro,Comfortable interest coverage,0.9
+ICICIPRULI,Pro,Positive free cash flow,0.85
+INDUSINDBK,Con,High debt levels,0.9
+INDUSINDBK,Pro,Healthy net profit margin,0.9
+INDUSINDBK,Pro,Strong operating margin,0.9
+INDUSINDBK,Con,Low interest coverage,0.9
+INDUSINDBK,Con,Negative free cash flow,0.9
+INFY,Pro,High ROE (29.8%),0.95
+INFY,Pro,Low debt levels,0.9
+INFY,Pro,Healthy net profit margin,0.9
+INFY,Pro,Strong operating margin,0.9
+INFY,Pro,Comfortable interest coverage,0.9
+INFY,Pro,Positive free cash flow,0.85
+INFY,Pro,Efficient asset utilization,0.8
+INFY,Pro,Consistently high ROE (27.0%),0.9
+INFY,Con,Requires further financial monitoring,0.75
+IOC,Pro,High ROE (23.5%),0.95
+IOC,Con,Weak operating margin,0.85
+IOC,Pro,Comfortable interest coverage,0.9
+IOC,Pro,Positive free cash flow,0.85
+IOC,Pro,Efficient asset utilization,0.8
+IRCTC,Pro,High ROE (34.4%),0.95
+IRCTC,Pro,Low debt levels,0.9
+IRCTC,Pro,Healthy net profit margin,0.9
+IRCTC,Pro,Strong operating margin,0.9
+IRCTC,Pro,Comfortable interest coverage,0.9
+IRCTC,Pro,Positive free cash flow,0.85
+IRCTC,Con,Requires further financial monitoring,0.75
+IRFC,Con,High debt levels,0.9
+IRFC,Pro,Healthy net profit margin,0.9
+IRFC,Pro,Strong operating margin,0.9
+IRFC,Con,Low interest coverage,0.9
+IRFC,Pro,Positive free cash flow,0.85
+ITC,Pro,High ROE (27.9%),0.95
+ITC,Pro,Low debt levels,0.9
+ITC,Pro,Healthy net profit margin,0.9
+ITC,Pro,Strong operating margin,0.9
+ITC,Pro,Comfortable interest coverage,0.9
+ITC,Pro,Positive free cash flow,0.85
+ITC,Con,Requires further financial monitoring,0.75
+JINDALSTEL,Pro,Low debt levels,0.9
+JINDALSTEL,Pro,Strong operating margin,0.9
+JINDALSTEL,Pro,Comfortable interest coverage,0.9
+JINDALSTEL,Con,Negative free cash flow,0.9
+JIOFIN,Con,Low ROE (1.1%),0.9
+JIOFIN,Pro,Low debt levels,0.9
+JIOFIN,Pro,Healthy net profit margin,0.9
+JIOFIN,Pro,Strong operating margin,0.9
+JIOFIN,Pro,Comfortable interest coverage,0.9
+JIOFIN,Pro,Positive free cash flow,0.85
+JSWENERGY,Con,Low ROE (8.3%),0.9
+JSWENERGY,Con,High debt levels,0.9
+JSWENERGY,Pro,Healthy net profit margin,0.9
+JSWENERGY,Pro,Strong operating margin,0.9
+JSWENERGY,Con,Negative free cash flow,0.9
+JSWSTEEL,Con,High debt levels,0.9
+JSWSTEEL,Con,Negative free cash flow,0.9
+JSWSTEEL,Pro,Stable financial performance,0.75
+KOTAKBANK,Con,High debt levels,0.9
+KOTAKBANK,Pro,Healthy net profit margin,0.9
+KOTAKBANK,Pro,Strong operating margin,0.9
+KOTAKBANK,Con,Low interest coverage,0.9
+KOTAKBANK,Pro,Positive free cash flow,0.85
+LICI,Pro,High ROE (49.5%),0.95
+LICI,Pro,Low debt levels,0.9
+LICI,Con,Weak profitability,0.85
+LICI,Con,Weak operating margin,0.85
+LICI,Pro,Comfortable interest coverage,0.9
+LICI,Pro,Positive free cash flow,0.85
+LODHA,Con,Low ROE (8.9%),0.9
+LODHA,Pro,Low debt levels,0.9
+LODHA,Pro,Healthy net profit margin,0.9
+LODHA,Pro,Strong operating margin,0.9
+LODHA,Pro,Comfortable interest coverage,0.9
+LODHA,Con,Negative free cash flow,0.9
+LT,Pro,High ROE (77.7%),0.95
+LT,Pro,Low debt levels,0.9
+LT,Pro,Positive free cash flow,0.85
+LT,Pro,Efficient asset utilization,0.8
+LT,Con,Requires further financial monitoring,0.75
+LTIM,Pro,High ROE (22.9%),0.95
+LTIM,Pro,Low debt levels,0.9
+LTIM,Pro,Comfortable interest coverage,0.9
+LTIM,Pro,Positive free cash flow,0.85
+LTIM,Pro,Efficient asset utilization,0.8
+LTIM,Con,Requires further financial monitoring,0.75
+M&M,Con,High debt levels,0.9
+M&M,Con,Negative free cash flow,0.9
+M&M,Pro,Stable financial performance,0.75
+MARUTI,Pro,Low debt levels,0.9
+MARUTI,Pro,Comfortable interest coverage,0.9
+MARUTI,Pro,Positive free cash flow,0.85
+MARUTI,Pro,Efficient asset utilization,0.8
+MARUTI,Con,Requires further financial monitoring,0.75
+MOTHERSON,Con,Weak profitability,0.85
+MOTHERSON,Con,Weak operating margin,0.85
+MOTHERSON,Pro,Comfortable interest coverage,0.9
+MOTHERSON,Pro,Positive free cash flow,0.85
+MOTHERSON,Pro,Efficient asset utilization,0.8
+NAUKRI,Con,Low ROE (2.0%),0.9
+NAUKRI,Pro,Low debt levels,0.9
+NAUKRI,Pro,Healthy net profit margin,0.9
+NAUKRI,Pro,Strong operating margin,0.9
+NAUKRI,Pro,Comfortable interest coverage,0.9
+NAUKRI,Con,Negative free cash flow,0.9
+NESTLEIND,Pro,High ROE (117.8%),0.95
+NESTLEIND,Pro,Low debt levels,0.9
+NESTLEIND,Pro,Healthy net profit margin,0.9
+NESTLEIND,Pro,Strong operating margin,0.9
+NESTLEIND,Pro,Comfortable interest coverage,0.9
+NESTLEIND,Pro,Positive free cash flow,0.85
+NESTLEIND,Pro,Efficient asset utilization,0.8
+NESTLEIND,Con,Requires further financial monitoring,0.75
+NHPC,Pro,Healthy net profit margin,0.9
+NHPC,Pro,Strong operating margin,0.9
+NHPC,Pro,Comfortable interest coverage,0.9
+NHPC,Pro,Positive free cash flow,0.85
+NHPC,Con,Requires further financial monitoring,0.75
+NTPC,Con,High debt levels,0.9
+NTPC,Pro,Strong operating margin,0.9
+NTPC,Pro,Positive free cash flow,0.85
+ONGC,Pro,Low debt levels,0.9
+ONGC,Pro,Comfortable interest coverage,0.9
+ONGC,Pro,Positive free cash flow,0.85
+ONGC,Con,Requires further financial monitoring,0.75
+PFC,Pro,High ROE (26.2%),0.95
+PFC,Con,High debt levels,0.9
+PFC,Pro,Healthy net profit margin,0.9
+PFC,Pro,Strong operating margin,0.9
+PFC,Con,Low interest coverage,0.9
+PFC,Con,Negative free cash flow,0.9
+PIDILITIND,Pro,High ROE (20.8%),0.95
+PIDILITIND,Pro,Low debt levels,0.9
+PIDILITIND,Pro,Strong operating margin,0.9
+PIDILITIND,Pro,Comfortable interest coverage,0.9
+PIDILITIND,Pro,Positive free cash flow,0.85
+PIDILITIND,Pro,Efficient asset utilization,0.8
+PIDILITIND,Con,Requires further financial monitoring,0.75
+PNB,Pro,High ROE (61.3%),0.95
+PNB,Con,High debt levels,0.9
+PNB,Con,Negative free cash flow,0.9
+PNB,Pro,Efficient asset utilization,0.8
+POWERGRID,Con,High debt levels,0.9
+POWERGRID,Pro,Healthy net profit margin,0.9
+POWERGRID,Pro,Strong operating margin,0.9
+POWERGRID,Pro,Positive free cash flow,0.85
+RECLTD,Pro,High ROE (20.4%),0.95
+RECLTD,Con,High debt levels,0.9
+RECLTD,Pro,Healthy net profit margin,0.9
+RECLTD,Pro,Strong operating margin,0.9
+RECLTD,Con,Low interest coverage,0.9
+RECLTD,Con,Negative free cash flow,0.9
+RELIANCE,Con,Low ROE (10.0%),0.9
+RELIANCE,Pro,Comfortable interest coverage,0.9
+RELIANCE,Pro,Positive free cash flow,0.85
+SBILIFE,Pro,Low debt levels,0.9
+SBILIFE,Con,Weak profitability,0.85
+SBILIFE,Con,Weak operating margin,0.85
+SBILIFE,Pro,Comfortable interest coverage,0.9
+SBILIFE,Con,Negative free cash flow,0.9
+SBILIFE,Pro,Strong sales CAGR (23.0%),0.95
+SHREECEM,Con,Low ROE (8.4%),0.9
+SHREECEM,Pro,Low debt levels,0.9
+SHREECEM,Pro,Strong operating margin,0.9
+SHREECEM,Pro,Comfortable interest coverage,0.9
+SHREECEM,Pro,Positive free cash flow,0.85
+SHRIRAMFIN,Con,High debt levels,0.9
+SHRIRAMFIN,Pro,Healthy net profit margin,0.9
+SHRIRAMFIN,Pro,Strong operating margin,0.9
+SHRIRAMFIN,Con,Low interest coverage,0.9
+SHRIRAMFIN,Con,Negative free cash flow,0.9
+SUNPHARMA,Pro,Low debt levels,0.9
+SUNPHARMA,Pro,Healthy net profit margin,0.9
+SUNPHARMA,Pro,Strong operating margin,0.9
+SUNPHARMA,Pro,Comfortable interest coverage,0.9
+SUNPHARMA,Pro,Positive free cash flow,0.85
+SUNPHARMA,Con,Requires further financial monitoring,0.75
+TATACONSUM,Con,Low ROE (7.6%),0.9
+TATACONSUM,Pro,Low debt levels,0.9
+TATACONSUM,Pro,Comfortable interest coverage,0.9
+TATACONSUM,Pro,Positive free cash flow,0.85
+TATAMOTORS,Pro,High ROE (37.5%),0.95
+TATAMOTORS,Con,High debt levels,0.9
+TATAMOTORS,Pro,Comfortable interest coverage,0.9
+TATAMOTORS,Pro,Positive free cash flow,0.85
+TATAMOTORS,Pro,Efficient asset utilization,0.8
+TATAPOWER,Con,High debt levels,0.9
+TATAPOWER,Pro,Positive free cash flow,0.85
+TATASTEEL,Con,Low ROE (-5.3%),0.9
+TATASTEEL,Con,Weak profitability,0.85
+TATASTEEL,Con,Weak operating margin,0.85
+TATASTEEL,Pro,Positive free cash flow,0.85
+TCS,Pro,High ROE (50.9%),0.95
+TCS,Pro,Low debt levels,0.9
+TCS,Pro,Healthy net profit margin,0.9
+TCS,Pro,Strong operating margin,0.9
+TCS,Pro,Comfortable interest coverage,0.9
+TCS,Pro,Positive free cash flow,0.85
+TCS,Pro,Efficient asset utilization,0.8
+TCS,Pro,Consistently high ROE (40.0%),0.9
+TCS,Con,Requires further financial monitoring,0.75
+TECHM,Con,Low ROE (9.0%),0.9
+TECHM,Pro,Low debt levels,0.9
+TECHM,Con,Weak profitability,0.85
+TECHM,Con,Weak operating margin,0.85
+TECHM,Pro,Comfortable interest coverage,0.9
+TECHM,Pro,Positive free cash flow,0.85
+TECHM,Pro,Efficient asset utilization,0.8
+TITAN,Pro,High ROE (37.2%),0.95
+TITAN,Con,High debt levels,0.9
+TITAN,Pro,Comfortable interest coverage,0.9
+TITAN,Pro,Positive free cash flow,0.85
+TITAN,Pro,Efficient asset utilization,0.8
+TORNTPHARM,Pro,High ROE (24.1%),0.95
+TORNTPHARM,Pro,Healthy net profit margin,0.9
+TORNTPHARM,Pro,Strong operating margin,0.9
+TORNTPHARM,Pro,Comfortable interest coverage,0.9
+TORNTPHARM,Pro,Positive free cash flow,0.85
+TORNTPHARM,Con,Requires further financial monitoring,0.75
+TRENT,Pro,High ROE (36.3%),0.95
+TRENT,Pro,Low debt levels,0.9
+TRENT,Pro,Comfortable interest coverage,0.9
+TRENT,Pro,Positive free cash flow,0.85
+TRENT,Pro,Efficient asset utilization,0.8
+TRENT,Con,Requires further financial monitoring,0.75
+TVSMOTOR,Pro,High ROE (26.2%),0.95
+TVSMOTOR,Con,High debt levels,0.9
+TVSMOTOR,Con,Weak profitability,0.85
+TVSMOTOR,Con,Negative free cash flow,0.9
+ULTRACEMCO,Pro,Low debt levels,0.9
+ULTRACEMCO,Pro,Comfortable interest coverage,0.9
+ULTRACEMCO,Pro,Positive free cash flow,0.85
+ULTRACEMCO,Con,Requires further financial monitoring,0.75
+UNIONBANK,Con,High debt levels,0.9
+UNIONBANK,Con,Weak operating margin,0.85
+UNIONBANK,Con,Low interest coverage,0.9
+UNIONBANK,Pro,Positive free cash flow,0.85
+INDIGO,Pro,High ROE (892.6%),0.95
+INDIGO,Pro,Low debt levels,0.9
+INDIGO,Pro,Strong operating margin,0.9
+INDIGO,Pro,Comfortable interest coverage,0.9
+INDIGO,Pro,Positive free cash flow,0.85
+INDIGO,Pro,Efficient asset utilization,0.8
+INDIGO,Con,Requires further financial monitoring,0.75
+SIEMENS,Pro,Low debt levels,0.9
+SIEMENS,Pro,Comfortable interest coverage,0.9
+SIEMENS,Pro,Positive free cash flow,0.85
+SIEMENS,Con,Requires further financial monitoring,0.75
