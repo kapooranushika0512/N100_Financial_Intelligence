@@ -10,6 +10,7 @@ from views import (
     capital,
     reports,
     valuation,
+    ai_insights,
 )
 
 st.set_page_config(
@@ -28,6 +29,7 @@ PAGES = {
     "🏭 Sector Analysis": sectors,
     "💰 Capital Allocation": capital,
     "💹 Valuation": valuation,
+    "🤖 AI Insights": ai_insights,
     "📄 Annual Reports": reports,
 }
 
