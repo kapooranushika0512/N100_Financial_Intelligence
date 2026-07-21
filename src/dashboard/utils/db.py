@@ -324,3 +324,36 @@ def get_peer_companies(group):
         """,
         [group],
     )
+# ---------------------------------------------------
+# CASHFLOW INTELLIGENCE
+# ---------------------------------------------------
+
+@st.cache_data(ttl=600)
+def get_cashflow_intelligence():
+
+    from pathlib import Path
+
+    output = (
+        PROJECT_ROOT
+        / "output"
+        / "cashflow_intelligence.xlsx"
+    )
+
+    if not output.exists():
+        return pd.DataFrame()
+
+    try:
+       return pd.read_excel(output)
+    except Exception:
+      return pd.DataFrame()   
+
+
+@st.cache_data(ttl=600)
+def get_company_cashflow_intelligence(company):
+
+    df = get_cashflow_intelligence()
+
+    if df.empty:
+        return df
+
+    return df[df.company_id == company] 
