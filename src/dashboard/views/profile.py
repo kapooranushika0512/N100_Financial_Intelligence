@@ -19,6 +19,9 @@ def render_company_header(company, sector, company_id):
 
         logo = company["company_logo"]
 
+        # Temporary: show the logo URL for debugging
+        st.write("Logo URL:", logo)
+
         if (
             pd.notna(logo)
             and isinstance(logo, str)
@@ -26,7 +29,8 @@ def render_company_header(company, sector, company_id):
         ):
             try:
                 st.image(logo, width=120)
-            except Exception:
+            except Exception as e:
+                st.error(e)
                 st.markdown("# 🏢")
         else:
             st.markdown("# 🏢")
@@ -39,12 +43,14 @@ def render_company_header(company, sector, company_id):
 
         if not sector.empty:
             sector = sector.iloc[0]
+
             st.write(
-        f"**Sector:** {sector['broad_sector']}"
-          )
+                f"**Sector:** {sector['broad_sector']}"
+            )
+
             st.write(
-        f"**Sub Sector:** {sector['sub_sector']}"
-    )
+                f"**Sub Sector:** {sector['sub_sector']}"
+            )
 
         st.write(company["about_company"])
 

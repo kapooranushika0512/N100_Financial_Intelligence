@@ -152,7 +152,43 @@ def capex_label(value):
 
     return "Capital Intensive"
 
+def free_cash_flow(cfo, capex):
+    return cfo + capex
 
+
+def cfo_quality_score(cfo, pat):
+    if pat == 0:
+        return None
+
+    ratio = cfo / pat
+
+    if ratio >= 1:
+        return "High Quality"
+    elif ratio >= 0.5:
+        return "Moderate"
+    else:
+        return "Accrual Risk"
+
+
+def capex_intensity(capex, revenue):
+    if revenue == 0:
+        return None
+
+    ratio = abs(capex) / revenue
+
+    if ratio < 0.05:
+        return "Asset Light"
+    elif ratio < 0.15:
+        return "Moderate"
+    else:
+        return "Capital Intensive"
+
+
+def fcf_conversion_rate(fcf, pat):
+    if pat == 0:
+        return None
+
+    return (fcf / pat) * 100
 def calculate_cagr(values):
 
     values = values.dropna()
