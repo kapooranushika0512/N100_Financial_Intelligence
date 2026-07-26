@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import pandas as pd
 
 OUTPUT_DIR = Path("output")
@@ -8,16 +9,16 @@ INPUT_FILE = OUTPUT_DIR / "recommendations.csv"
 
 
 def load_data():
+    """Load recommendations CSV data from the output directory."""
 
     if not INPUT_FILE.exists():
-        raise FileNotFoundError(
-            "recommendations.csv not found. Run Day 31 first."
-        )
+        raise FileNotFoundError("recommendations.csv not found. Run Day 31 first.")
 
     return pd.read_csv(INPUT_FILE)
 
 
 def build_summary(row):
+    """Construct a narrative investment summary sentence based on recommendation details."""
 
     recommendation = row.recommendation
     confidence = int(row.confidence * 100)
@@ -64,6 +65,7 @@ def build_summary(row):
 
 
 def generate():
+    """Generate investment summary narratives for all companies and output as CSV."""
 
     df = load_data()
 

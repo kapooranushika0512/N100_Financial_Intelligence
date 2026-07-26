@@ -1,9 +1,9 @@
-from fastapi import APIRouter, HTTPException
 import pandas as pd
+from fastapi import APIRouter, HTTPException
 
 from src.dashboard.utils.db import (
-    get_sectors,
     get_companies,
+    get_sectors,
 )
 
 router = APIRouter(
@@ -12,11 +12,8 @@ router = APIRouter(
 )
 
 
-# ---------------------------------------------------------
-# HELPER
-# ---------------------------------------------------------
-
 def clean_df(df):
+    """Replace NaN values with None in a DataFrame for JSON serialization."""
 
     if df is None or df.empty:
         return df
@@ -28,6 +25,7 @@ def clean_df(df):
 
 
 def build_sector_dataframe():
+    """Build and merge sector assignments with company names."""
 
     sectors = clean_df(get_sectors())
     companies = clean_df(get_companies())
@@ -48,12 +46,9 @@ def build_sector_dataframe():
     return clean_df(sectors)
 
 
-# ---------------------------------------------------------
-# ALL SECTOR DATA
-# ---------------------------------------------------------
-
 @router.get("/")
 def all_sectors():
+    """Retrieve sector mapping details across all companies."""
 
     df = build_sector_dataframe()
 
@@ -66,41 +61,24 @@ def all_sectors():
     return df.to_dict(orient="records")
 
 
-# ---------------------------------------------------------
-# UNIQUE SECTORS
-# ---------------------------------------------------------
-
 @router.get("/list")
 def sector_list():
+    """Retrieve a list of unique broad sectors sorted alphabetically."""
 
     df = build_sector_dataframe()
 
-    sectors = (
-        df["broad_sector"]
-        .dropna()
-        .sort_values()
-        .unique()
-        .tolist()
-    )
+    sectors = df["broad_sector"].dropna().sort_values().unique().tolist()
 
     return sectors
 
 
-# ---------------------------------------------------------
-# SINGLE SECTOR
-# ---------------------------------------------------------
-
 @router.get("/{sector}")
 def companies_by_sector(sector: str):
+    """Retrieve all companies belonging to a specified broad sector."""
 
     df = build_sector_dataframe()
 
-    df = df[
-        df["broad_sector"]
-        .astype(str)
-        .str.lower()
-        == sector.lower()
-    ]
+    df = df[df["broad_sector"].astype(str).str.lower() == sector.lower()]
 
     if df.empty:
         raise HTTPException(
@@ -115,21 +93,13 @@ def companies_by_sector(sector: str):
     }
 
 
-# ---------------------------------------------------------
-# SUB SECTOR
-# ---------------------------------------------------------
-
 @router.get("/sub/{subsector}")
 def companies_by_subsector(subsector: str):
+    """Retrieve all companies belonging to a specified sub-sector."""
 
     df = build_sector_dataframe()
 
-    df = df[
-        df["sub_sector"]
-        .astype(str)
-        .str.lower()
-        == subsector.lower()
-    ]
+    df = df[df["sub_sector"].astype(str).str.lower() == subsector.lower()]
 
     if df.empty:
         raise HTTPException(
@@ -144,21 +114,13 @@ def companies_by_subsector(subsector: str):
     }
 
 
-# ---------------------------------------------------------
-# MARKET CAP CATEGORY
-# ---------------------------------------------------------
-
 @router.get("/marketcap/{category}")
 def market_cap_category(category: str):
+    """Retrieve all companies belonging to a specified market capitalization category."""
 
     df = build_sector_dataframe()
 
-    df = df[
-        df["market_cap_category"]
-        .astype(str)
-        .str.lower()
-        == category.lower()
-    ]
+    df = df[df["market_cap_category"].astype(str).str.lower() == category.lower()]
 
     if df.empty:
         raise HTTPException(

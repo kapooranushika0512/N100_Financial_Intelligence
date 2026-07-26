@@ -1,62 +1,38 @@
-import pandas as pd
 from pathlib import Path
 
-from normaliser import (
-    normalize_ticker,
-    normalize_year,
-    normalize_columns
-)
+import pandas as pd
+from normaliser import normalize_columns, normalize_ticker, normalize_year
 
 RAW_PATH = Path("data/raw")
 SUPPORTING_PATH = Path("data/supporting")
 
 
 def load_excel(file_path, header_row):
-    """
-    Load and clean a single Excel file
-    """
+    """Load, clean, and normalize a single Excel file with data quality filters."""
 
     try:
         df = pd.read_excel(file_path, header=header_row)
 
-        # normalize column names
         df = normalize_columns(df)
 
-        # normalize company ids
         if "company_id" in df.columns:
-            df["company_id"] = df["company_id"].apply(
-                normalize_ticker
-            )
+            df["company_id"] = df["company_id"].apply(normalize_ticker)
 
-        # normalize year column
         if "year" in df.columns:
-            df["year"] = df["year"].apply(
-                normalize_year
-            )
+            df["year"] = df["year"].apply(normalize_year)
 
-        # DQ-02: remove duplicate company-year rows
         duplicates_removed = 0
 
-        if (
-            "company_id" in df.columns
-            and "year" in df.columns
-        ):
+        if "company_id" in df.columns and "year" in df.columns:
             before = len(df)
 
-            df = df.drop_duplicates(
-                subset=["company_id", "year"],
-                keep="last"
-            )
+            df = df.drop_duplicates(subset=["company_id", "year"], keep="last")
 
             duplicates_removed = before - len(df)
 
-        # DQ-06: remove non-positive sales rows
         sales_removed = 0
 
-        if (
-            file_path.stem == "profitandloss"
-            and "sales" in df.columns
-        ):
+        if file_path.stem == "profitandloss" and "sales" in df.columns:
             before = len(df)
 
             df = df[df["sales"] > 0]
@@ -72,17 +48,13 @@ def load_excel(file_path, header_row):
 
         return df
 
-    except Exception as e:
-        print(
-            f"Error loading {file_path.name}: {e}"
-        )
+    except (FileNotFoundError, ValueError, KeyError, OSError) as e:
+        print(f"Error loading {file_path.name}: {e}")
         return None
 
 
 def load_all_files():
-    """
-    Load all datasets
-    """
+    """Load all core and supporting Excel datasets into a dictionary of DataFrames."""
 
     datasets = {}
 
@@ -90,24 +62,19 @@ def load_all_files():
     print("-" * 40)
 
     for file in RAW_PATH.glob("*.xlsx"):
-        datasets[file.stem] = load_excel(
-            file,
-            header_row=1
-        )
+        datasets[file.stem] = load_excel(file, header_row=1)
 
     print("\nSUPPORTING FILES")
     print("-" * 40)
 
     for file in SUPPORTING_PATH.glob("*.xlsx"):
-        datasets[file.stem] = load_excel(
-            file,
-            header_row=0
-        )
+        datasets[file.stem] = load_excel(file, header_row=0)
 
     return datasets
 
 
 def print_summary(datasets):
+    """Print row counts and load status for each dataset in the dictionary."""
 
     print("\nSummary")
     print("-" * 40)

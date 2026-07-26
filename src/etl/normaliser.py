@@ -2,10 +2,7 @@ import pandas as pd
 
 
 def normalize_ticker(value):
-    """
-    Convert company tickers to uppercase and remove spaces.
-    Example: abb -> ABB
-    """
+    """Convert company ticker string to uppercase and strip whitespace."""
 
     if pd.isna(value):
         return None
@@ -14,13 +11,7 @@ def normalize_ticker(value):
 
 
 def normalize_year(value):
-    """
-    Standardize year values.
-    Examples:
-    Dec 2012 -> Dec 2012
-    Mar 2014 -> Mar 2014
-    2020 -> 2020
-    """
+    """Standardize financial year value as a clean string."""
 
     if pd.isna(value):
         return None
@@ -29,16 +20,8 @@ def normalize_year(value):
 
 
 def normalize_columns(df):
-    """
-    Standardize column names.
-    """
+    """Normalize DataFrame column names to lower_snake_case format."""
 
-    df.columns = (
-        df.columns
-        .astype(str)
-        .str.strip()
-        .str.lower()
-        .str.replace(" ", "_")
-    )
+    df.columns = df.columns.astype(str).str.strip().str.lower().str.replace(" ", "_")
 
     return df

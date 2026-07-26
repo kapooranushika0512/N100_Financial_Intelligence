@@ -1,16 +1,5 @@
-import math
-
-
-def calculate_cagr(
-    start_value,
-    end_value,
-    years
-):
-    """
-    Calculate CAGR with Sprint 2 edge case handling.
-    Returns:
-        (value, flag)
-    """
+def calculate_cagr(start_value, end_value, years):
+    """Calculate CAGR with Sprint 2 edge case handling."""
 
     if start_value is None or end_value is None:
         return None, "INVALID"
@@ -23,12 +12,7 @@ def calculate_cagr(
 
     if start_value > 0 and end_value > 0:
 
-        cagr = (
-            (
-                end_value / start_value
-            ) ** (1 / years)
-            - 1
-        ) * 100
+        cagr = ((end_value / start_value) ** (1 / years) - 1) * 100
 
         return round(cagr, 2), "OK"
 
@@ -44,37 +28,16 @@ def calculate_cagr(
     return None, "INVALID"
 
 
-def revenue_cagr(
-    start_sales,
-    end_sales,
-    years
-):
-    return calculate_cagr(
-        start_sales,
-        end_sales,
-        years
-    )
+def revenue_cagr(start_sales, end_sales, years):
+    """Calculate the revenue CAGR."""
+    return calculate_cagr(start_sales, end_sales, years)
 
 
-def pat_cagr(
-    start_pat,
-    end_pat,
-    years
-):
-    return calculate_cagr(
-        start_pat,
-        end_pat,
-        years
-    )
+def pat_cagr(start_pat, end_pat, years):
+    """Calculate the PAT CAGR."""
+    return calculate_cagr(start_pat, end_pat, years)
 
 
-def eps_cagr(
-    start_eps,
-    end_eps,
-    years
-):
-    return calculate_cagr(
-        start_eps,
-        end_eps,
-        years
-    )
+def eps_cagr(start_eps, end_eps, years):
+    """Calculate the EPS CAGR."""
+    return calculate_cagr(start_eps, end_eps, years)

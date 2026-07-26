@@ -1,27 +1,20 @@
 import warnings
+
 warnings.filterwarnings("ignore")
 
 from pathlib import Path
 
-import numpy as np
-import pandas as pd
-
 import matplotlib.pyplot as plt
-import seaborn as sns
-
+import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
 from src.dashboard.utils.db import (
+    get_analysis,
     get_companies,
     get_latest_ratios,
     get_sectors,
-    get_analysis,
 )
-
-# ---------------------------------------------------
-# PATHS
-# ---------------------------------------------------
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
@@ -31,9 +24,6 @@ REPORT_DIR = PROJECT_ROOT / "reports"
 OUTPUT_DIR.mkdir(exist_ok=True)
 REPORT_DIR.mkdir(exist_ok=True)
 
-# ---------------------------------------------------
-# FEATURES USED FOR CLUSTERING
-# ---------------------------------------------------
 
 FEATURES = [
     "return_on_equity_pct",
@@ -42,7 +32,10 @@ FEATURES = [
     "free_cash_flow_cr",
     "operating_profit_margin_pct",
 ]
+
+
 def load_data():
+    """Load and merge company financial datasets for clustering analysis."""
 
     companies = get_companies()
 
@@ -101,21 +94,18 @@ def load_data():
     )
 
     return df
+
+
 def sector_imputation(df):
+    """Impute missing feature values using sector medians and overall medians."""
 
     # Convert every feature to numeric
     for feature in FEATURES:
-        df[feature] = pd.to_numeric(
-            df[feature],
-            errors="coerce"
-        )
+        df[feature] = pd.to_numeric(df[feature], errors="coerce")
 
     for feature in FEATURES:
 
-        sector_median = (
-            df.groupby("broad_sector")[feature]
-            .transform("median")
-        )
+        sector_median = df.groupby("broad_sector")[feature].transform("median")
 
         df[feature] = df[feature].fillna(sector_median)
 
@@ -127,16 +117,16 @@ def sector_imputation(df):
         df[feature] = df[feature].fillna(overall)
 
     return df
+
+
 def preprocess(df):
+    """Preprocess data and scale features for cluster model input."""
 
     df = sector_imputation(df)
 
     # Safety conversion
     for feature in FEATURES:
-        df[feature] = pd.to_numeric(
-            df[feature],
-            errors="coerce"
-        )
+        df[feature] = pd.to_numeric(df[feature], errors="coerce")
 
     # Fill any remaining NaNs
     for feature in FEATURES:
@@ -156,11 +146,10 @@ def preprocess(df):
     X = scaler.fit_transform(df[FEATURES])
 
     return df, X, scaler
-# ---------------------------------------------------
-# ELBOW METHOD
-# ---------------------------------------------------
+
 
 def generate_elbow_plot(X):
+    """Generate and save the KMeans elbow plot for optimal k selection."""
 
     inertias = []
 
@@ -199,11 +188,10 @@ def generate_elbow_plot(X):
     )
 
     plt.close()
-# ---------------------------------------------------
-# CLUSTER NAMES
-# ---------------------------------------------------
+
 
 def assign_cluster_names(profile):
+    """Map cluster profiles to human-readable financial categories."""
 
     names = {}
 
@@ -235,11 +223,10 @@ def assign_cluster_names(profile):
             names[cluster] = "Balanced Performers"
 
     return names
-# ---------------------------------------------------
-# KMEANS
-# ---------------------------------------------------
+
 
 def perform_clustering(df, X):
+    """Perform KMeans clustering and attach cluster assignments and profiles."""
 
     model = KMeans(
         n_clusters=5,
@@ -253,25 +240,17 @@ def perform_clustering(df, X):
 
     df["distance_from_centroid"] = distances.min(axis=1)
 
-    profile = (
-        df.groupby("cluster_id")[FEATURES]
-        .mean()
-        .round(2)
-    )
+    profile = df.groupby("cluster_id")[FEATURES].mean().round(2)
 
     cluster_names = assign_cluster_names(profile)
 
-    df["cluster_name"] = (
-        df["cluster_id"]
-        .map(cluster_names)
-    )
+    df["cluster_name"] = df["cluster_id"].map(cluster_names)
 
     return df, profile
-# ---------------------------------------------------
-# SAVE OUTPUTS
-# ---------------------------------------------------
+
 
 def save_cluster_labels(df):
+    """Save assigned cluster labels for companies to a CSV file."""
 
     output = df[
         [
@@ -281,9 +260,7 @@ def save_cluster_labels(df):
             "cluster_name",
             "distance_from_centroid",
         ]
-    ].sort_values(
-        ["cluster_id", "company_name"]
-    )
+    ].sort_values(["cluster_id", "company_name"])
 
     output.to_csv(
         OUTPUT_DIR / "cluster_labels.csv",
@@ -296,21 +273,15 @@ def save_cluster_labels(df):
 
 
 def save_cluster_profile(profile):
+    """Save cluster profile summary metrics to a CSV file."""
 
-    profile.to_csv(
-        OUTPUT_DIR / "cluster_profile.csv"
-    )
+    profile.to_csv(OUTPUT_DIR / "cluster_profile.csv")
 
     print("\nCluster profile saved.")
-# ---------------------------------------------------
-# MAIN
-# ---------------------------------------------------
 
-# ---------------------------------------------------
-# MAIN
-# ---------------------------------------------------
 
 def main():
+    """Execute the Day 36 clustering workflow."""
 
     print("=" * 60)
     print("Financial Intelligence - Day 36")
@@ -327,7 +298,7 @@ def main():
 
     print("\nPreprocessing...")
 
-    df, X, scaler = preprocess(df)
+    df, X, _ = preprocess(df)
 
     print("Generating elbow plot...")
 
@@ -343,19 +314,13 @@ def main():
 
     print("\nCluster Summary\n")
 
-    print(
-        df.groupby("cluster_name")
-        .size()
-        .sort_values(ascending=False)
-    )
+    print(df.groupby("cluster_name").size().sort_values(ascending=False))
 
     print("\nDay 36 Completed Successfully!")
     print(f"Elbow Plot        : {REPORT_DIR/'elbow_plot.png'}")
     print(f"Cluster Labels    : {OUTPUT_DIR/'cluster_labels.csv'}")
     print(f"Cluster Profile   : {OUTPUT_DIR/'cluster_profile.csv'}")
 
-
-# ---------------------------------------------------
 
 if __name__ == "__main__":
     main()

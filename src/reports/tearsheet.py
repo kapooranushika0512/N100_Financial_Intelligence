@@ -14,13 +14,11 @@ from reportlab.platypus import (
 
 from src.dashboard.utils.db import (
     get_balance_sheet,
-    get_cashflow,
     get_company,
     get_company_pros_cons,
     get_company_ratios,
     get_profit_loss,
 )
-
 from src.reports.charts import (
     revenue_profit_chart,
     roe_chart,
@@ -30,12 +28,16 @@ styles = getSampleStyleSheet()
 
 
 def latest(df):
+    """Retrieve the last row from a DataFrame or return None if empty."""
+
     if df.empty:
         return None
     return df.iloc[-1]
 
 
 def value(row, column, suffix=""):
+    """Format a row column value as a floating-point string with an optional suffix."""
+
     if row is None:
         return "N/A"
 
@@ -44,11 +46,12 @@ def value(row, column, suffix=""):
 
     try:
         return f"{float(row[column]):,.2f}{suffix}"
-    except Exception:
+    except (ValueError, TypeError):
         return str(row[column])
 
 
 def create_tearsheet(company_id):
+    """Generate a PDF financial tearsheet report containing KPIs, charts, pros, and cons."""
 
     company = get_company(company_id)
 
@@ -60,7 +63,6 @@ def create_tearsheet(company_id):
 
     pl = get_profit_loss(company_id)
     bs = get_balance_sheet(company_id)
-    cf = get_cashflow(company_id)
     ratios = get_company_ratios(company_id)
     proscons = get_company_pros_cons(company_id)
 
@@ -77,10 +79,6 @@ def create_tearsheet(company_id):
 
     story = []
 
-    # ------------------------------------------------
-    # TITLE
-    # ------------------------------------------------
-
     story.append(
         Paragraph(
             f"<b><font size='20'>{company_name}</font></b>",
@@ -89,10 +87,6 @@ def create_tearsheet(company_id):
     )
 
     story.append(Spacer(1, 0.25 * inch))
-
-    # ------------------------------------------------
-    # KPI TABLE
-    # ------------------------------------------------
 
     kpi_data = [
         ["Revenue", value(latest_pl, "sales")],
@@ -124,10 +118,6 @@ def create_tearsheet(company_id):
 
     story.append(Spacer(1, 0.3 * inch))
 
-    # ------------------------------------------------
-    # CHARTS
-    # ------------------------------------------------
-
     if not pl.empty:
 
         revenue_chart = revenue_profit_chart(pl, company_id)
@@ -155,10 +145,6 @@ def create_tearsheet(company_id):
         )
 
         story.append(Spacer(1, 0.3 * inch))
-
-    # ------------------------------------------------
-    # PROS
-    # ------------------------------------------------
 
     story.append(
         Paragraph(
@@ -193,10 +179,6 @@ def create_tearsheet(company_id):
 
     story.append(Spacer(1, 0.25 * inch))
 
-    # ------------------------------------------------
-    # CONS
-    # ------------------------------------------------
-
     story.append(
         Paragraph(
             "<b>Cons</b>",
@@ -227,10 +209,6 @@ def create_tearsheet(company_id):
                 styles["BodyText"],
             )
         )
-
-    # ------------------------------------------------
-    # BUILD PDF
-    # ------------------------------------------------
 
     doc.build(story)
 

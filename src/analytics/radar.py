@@ -1,7 +1,8 @@
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 OUTPUT_DIR = "reports/radar_charts"
 
@@ -18,21 +19,19 @@ METRICS = [
 
 
 def load_data():
+    """Load financial ratios merged with peer group assignments from Excel."""
     ratios = pd.read_excel("data/supporting/financial_ratios.xlsx")
     peers = pd.read_excel("data/supporting/peer_groups.xlsx")
 
     peers = peers.drop(columns=["id"], errors="ignore")
 
-    df = ratios.merge(
-        peers,
-        on="company_id",
-        how="left"
-    )
+    df = ratios.merge(peers, on="company_id", how="left")
 
     return df
 
 
 def draw_radar(company_row, peer_avg, company_id):
+    """Generate and save a polar radar chart comparing a company against its peer average."""
 
     company = company_row.fillna(0)
     peer = peer_avg.fillna(0)
@@ -40,12 +39,7 @@ def draw_radar(company_row, peer_avg, company_id):
     values = company.tolist()
     peer_values = peer.tolist()
 
-    angles = np.linspace(
-        0,
-        2 * np.pi,
-        len(METRICS),
-        endpoint=False
-    )
+    angles = np.linspace(0, 2 * np.pi, len(METRICS), endpoint=False)
 
     angles = np.concatenate((angles, [angles[0]]))
 
@@ -56,26 +50,11 @@ def draw_radar(company_row, peer_avg, company_id):
 
     ax = plt.subplot(111, polar=True)
 
-    ax.plot(
-        angles,
-        values,
-        linewidth=2,
-        label="Company"
-    )
+    ax.plot(angles, values, linewidth=2, label="Company")
 
-    ax.fill(
-        angles,
-        values,
-        alpha=0.25
-    )
+    ax.fill(angles, values, alpha=0.25)
 
-    ax.plot(
-        angles,
-        peer_values,
-        "--",
-        linewidth=2,
-        label="Peer Average"
-    )
+    ax.plot(angles, peer_values, "--", linewidth=2, label="Peer Average")
 
     ax.set_xticks(angles[:-1])
     ax.set_xticklabels(
@@ -92,28 +71,19 @@ def draw_radar(company_row, peer_avg, company_id):
         fontsize=8,
     )
 
-    ax.set_title(
-        f"{company_id} Radar Comparison",
-        pad=20
-    )
+    ax.set_title(f"{company_id} Radar Comparison", pad=20)
 
     ax.legend(loc="upper right")
 
-    os.makedirs(
-        OUTPUT_DIR,
-        exist_ok=True
-    )
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    plt.savefig(
-        f"{OUTPUT_DIR}/{company_id}_radar.png",
-        dpi=150,
-        bbox_inches="tight"
-    )
+    plt.savefig(f"{OUTPUT_DIR}/{company_id}_radar.png", dpi=150, bbox_inches="tight")
 
     plt.close()
 
 
 def run(limit=None):
+    """Generate radar comparison charts for companies against their peer group averages."""
 
     df = load_data()
 
@@ -131,16 +101,9 @@ def run(limit=None):
 
         else:
 
-            peer_average = (
-                df[df["peer_group_name"] == peer_group][METRICS]
-                .mean()
-            )
+            peer_average = df[df["peer_group_name"] == peer_group][METRICS].mean()
 
-        draw_radar(
-            latest[METRICS],
-            peer_average,
-            company_id
-        )
+        draw_radar(latest[METRICS], peer_average, company_id)
 
         generated += 1
 

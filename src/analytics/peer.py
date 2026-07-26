@@ -1,21 +1,21 @@
 import sqlite3
+
 import pandas as pd
 
 DB_PATH = "db/nifty100.db"
 
 
 def load_data():
+    """Load supporting financial ratios, analysis, peer group, and sector datasets."""
     ratios = pd.read_excel("data/supporting/financial_ratios.xlsx")
     analysis = pd.read_excel("data/raw/analysis.xlsx", header=1)
     peers = pd.read_excel("data/supporting/peer_groups.xlsx")
     sectors = pd.read_excel("data/supporting/sectors.xlsx")
 
-    # Remove duplicate id columns before merging
     analysis = analysis.drop(columns=["id"], errors="ignore")
     peers = peers.drop(columns=["id"], errors="ignore")
     sectors = sectors.drop(columns=["id"], errors="ignore")
 
-    # Keep only required sector columns
     sectors = sectors[
         [
             "company_id",
@@ -25,35 +25,20 @@ def load_data():
         ]
     ]
 
-    # Merge datasets
-    df = ratios.merge(
-        analysis,
-        on="company_id",
-        how="left"
-    )
+    df = ratios.merge(analysis, on="company_id", how="left")
 
-    df = df.merge(
-        peers,
-        on="company_id",
-        how="left"
-    )
+    df = df.merge(peers, on="company_id", how="left")
 
-    df = df.merge(
-        sectors,
-        on="company_id",
-        how="left"
-    )
+    df = df.merge(sectors, on="company_id", how="left")
 
     return df
 
 
 def percentile(series, reverse=False):
+    """Calculate percentile ranks for a numeric series with option for reverse ranking."""
     series = pd.to_numeric(series, errors="coerce")
 
-    pct = series.rank(
-        method="average",
-        pct=True
-    )
+    pct = series.rank(method="average", pct=True)
 
     if reverse:
         pct = 1 - pct
@@ -62,6 +47,7 @@ def percentile(series, reverse=False):
 
 
 def compute_percentiles(df):
+    """Compute metric percentile ranks for companies within each peer group."""
 
     metrics = {
         "return_on_equity_pct": False,
@@ -106,20 +92,17 @@ def compute_percentiles(df):
 
 
 def save_sqlite(df):
+    """Save the calculated peer percentiles DataFrame to the SQLite database."""
 
     conn = sqlite3.connect(DB_PATH)
 
-    df.to_sql(
-        "peer_percentiles",
-        conn,
-        if_exists="replace",
-        index=False
-    )
+    df.to_sql("peer_percentiles", conn, if_exists="replace", index=False)
 
     conn.close()
 
 
 def run():
+    """Execute the peer percentile calculation workflow and save results."""
 
     df = load_data()
 

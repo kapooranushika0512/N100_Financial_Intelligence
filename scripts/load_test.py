@@ -1,8 +1,10 @@
 import time
-import requests
 from concurrent.futures import ThreadPoolExecutor
 
+import requests
+
 URL = "http://127.0.0.1:8000/api/v1/screener/"
+
 
 def hit_api(i):
     start = time.perf_counter()
@@ -11,11 +13,7 @@ def hit_api(i):
 
     elapsed = time.perf_counter() - start
 
-    return {
-        "Request": i,
-        "Status": response.status_code,
-        "Time": elapsed
-    }
+    return {"Request": i, "Status": response.status_code, "Time": elapsed}
 
 
 start = time.perf_counter()

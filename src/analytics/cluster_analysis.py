@@ -1,19 +1,18 @@
 import warnings
+
 warnings.filterwarnings("ignore")
 
 from pathlib import Path
 
-import pandas as pd
-import numpy as np
-
 import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
 
 from src.dashboard.utils.db import (
+    get_analysis,
     get_companies,
     get_latest_ratios,
     get_sectors,
-    get_analysis,
 )
 
 # ---------------------------------------------------
@@ -44,7 +43,10 @@ KPI_COLUMNS = [
     "book_value_per_share",
     "earnings_per_share",
 ]
+
+
 def load_data():
+    """Load and merge financial metrics across companies, ratios, sectors, and analysis."""
 
     companies = get_companies()[["id", "company_name"]].copy()
 
@@ -60,43 +62,26 @@ def load_data():
     ].copy()
 
     analysis["compounded_sales_growth"] = pd.to_numeric(
-        analysis["compounded_sales_growth"],
-        errors="coerce"
+        analysis["compounded_sales_growth"], errors="coerce"
     )
 
-    df = companies.merge(
-        ratios,
-        left_on="id",
-        right_on="company_id",
-        how="left"
-    )
+    df = companies.merge(ratios, left_on="id", right_on="company_id", how="left")
 
-    df = df.merge(
-        sectors,
-        on="company_id",
-        how="left"
-    )
+    df = df.merge(sectors, on="company_id", how="left")
 
-    df = df.merge(
-        analysis,
-        on="company_id",
-        how="left"
-    )
+    df = df.merge(analysis, on="company_id", how="left")
 
     return df
+
+
 def preprocess(df):
+    """Preprocess financial KPI data by converting types and imputing missing values."""
 
     for col in KPI_COLUMNS:
 
-        df[col] = pd.to_numeric(
-            df[col],
-            errors="coerce"
-        )
+        df[col] = pd.to_numeric(df[col], errors="coerce")
 
-        sector_median = (
-            df.groupby("broad_sector")[col]
-            .transform("median")
-        )
+        sector_median = df.groupby("broad_sector")[col].transform("median")
 
         df[col] = df[col].fillna(sector_median)
 
@@ -108,33 +93,30 @@ def preprocess(df):
         df[col] = df[col].fillna(median)
 
     return df
+
+
 def generate_correlation_heatmap(df):
+    """Generate and save a correlation heatmap image for financial KPIs."""
 
     correlation = df[KPI_COLUMNS].corr()
 
-    plt.figure(figsize=(12,10))
+    plt.figure(figsize=(12, 10))
 
-    sns.heatmap(
-        correlation,
-        annot=True,
-        cmap="RdYlGn",
-        fmt=".2f",
-        linewidths=0.5
-    )
+    sns.heatmap(correlation, annot=True, cmap="RdYlGn", fmt=".2f", linewidths=0.5)
 
     plt.title("Financial KPI Correlation Heatmap")
 
     plt.tight_layout()
 
-    plt.savefig(
-        REPORT_DIR / "correlation_heatmap.png",
-        dpi=300
-    )
+    plt.savefig(REPORT_DIR / "correlation_heatmap.png", dpi=300)
 
     plt.close()
 
     print("✓ correlation_heatmap.png created")
+
+
 def generate_portfolio_statistics(df):
+    """Calculate and export statistical summaries of portfolio KPIs to CSV."""
 
     stats = []
 
@@ -142,45 +124,35 @@ def generate_portfolio_statistics(df):
 
         values = df[col]
 
-        stats.append({
-
-            "Metric": col,
-
-            "Mean": values.mean(),
-
-            "Median": values.median(),
-
-            "Std": values.std(),
-
-            "Min": values.min(),
-
-            "P25": values.quantile(.25),
-
-            "P50": values.quantile(.50),
-
-            "P75": values.quantile(.75),
-
-            "Max": values.max(),
-
-        })
+        stats.append(
+            {
+                "Metric": col,
+                "Mean": values.mean(),
+                "Median": values.median(),
+                "Std": values.std(),
+                "Min": values.min(),
+                "P25": values.quantile(0.25),
+                "P50": values.quantile(0.50),
+                "P75": values.quantile(0.75),
+                "Max": values.max(),
+            }
+        )
 
     portfolio = pd.DataFrame(stats).round(2)
 
-    portfolio.to_csv(
-        OUTPUT_DIR / "portfolio_stats.csv",
-        index=False
-    )
+    portfolio.to_csv(OUTPUT_DIR / "portfolio_stats.csv", index=False)
 
     print("✓ portfolio_stats.csv created")
+
+
 def detect_outliers(df):
+    """Identify sector-relative metric outliers and save the report to CSV."""
 
     outliers = []
 
     for sector in df["broad_sector"].dropna().unique():
 
-        sector_df = df[
-            df["broad_sector"] == sector
-        ].copy()
+        sector_df = df[df["broad_sector"] == sector].copy()
 
         for col in KPI_COLUMNS:
 
@@ -191,10 +163,7 @@ def detect_outliers(df):
             if std == 0 or pd.isna(std):
                 continue
 
-            z = (
-                (sector_df[col] - mean)
-                / std
-            ).abs()
+            z = ((sector_df[col] - mean) / std).abs()
 
             temp = sector_df[z > 3].copy()
 
@@ -209,22 +178,19 @@ def detect_outliers(df):
 
     if outliers:
 
-        result = pd.concat(
-            outliers,
-            ignore_index=True
-        )
+        result = pd.concat(outliers, ignore_index=True)
 
     else:
 
         result = pd.DataFrame()
 
-    result.to_csv(
-        OUTPUT_DIR / "outlier_report.csv",
-        index=False
-    )
+    result.to_csv(OUTPUT_DIR / "outlier_report.csv", index=False)
 
     print("✓ outlier_report.csv created")
+
+
 def main():
+    """Execute the financial intelligence analysis workflow."""
 
     print("=" * 60)
 
@@ -267,6 +233,7 @@ def main():
     print(f"✓ {OUTPUT_DIR / 'portfolio_stats.csv'}")
 
     print(f"✓ {OUTPUT_DIR / 'outlier_report.csv'}")
+
 
 if __name__ == "__main__":
 

@@ -1,12 +1,12 @@
-from fastapi import APIRouter, HTTPException
 import pandas as pd
+from fastapi import APIRouter, HTTPException
 
 from src.dashboard.utils.db import (
-    get_peer_groups,
-    get_peer_group,
     get_company_peer,
-    get_peer_percentiles,
     get_peer_companies,
+    get_peer_group,
+    get_peer_groups,
+    get_peer_percentiles,
 )
 
 router = APIRouter(
@@ -15,11 +15,8 @@ router = APIRouter(
 )
 
 
-# ---------------------------------------------------------
-# HELPER
-# ---------------------------------------------------------
-
 def clean_df(df):
+    """Replace NaN values with None in a DataFrame for JSON serialization."""
 
     if df is None or df.empty:
         return df
@@ -30,12 +27,9 @@ def clean_df(df):
     return df
 
 
-# ---------------------------------------------------------
-# ALL PEER GROUPS
-# ---------------------------------------------------------
-
 @router.get("/")
 def peer_groups():
+    """Retrieve all peer group records."""
 
     df = clean_df(get_peer_groups())
 
@@ -48,32 +42,20 @@ def peer_groups():
     return df.to_dict(orient="records")
 
 
-# ---------------------------------------------------------
-# UNIQUE GROUPS
-# ---------------------------------------------------------
-
 @router.get("/groups")
 def peer_group_names():
+    """Retrieve a list of unique peer group names sorted alphabetically."""
 
     df = clean_df(get_peer_groups())
 
-    groups = (
-        df["peer_group_name"]
-        .dropna()
-        .sort_values()
-        .unique()
-        .tolist()
-    )
+    groups = df["peer_group_name"].dropna().sort_values().unique().tolist()
 
     return groups
 
 
-# ---------------------------------------------------------
-# SINGLE PEER GROUP
-# ---------------------------------------------------------
-
 @router.get("/group/{group}")
 def peer_group(group: str):
+    """Retrieve all companies belonging to a specified peer group."""
 
     df = clean_df(get_peer_group(group))
 
@@ -90,12 +72,9 @@ def peer_group(group: str):
     }
 
 
-# ---------------------------------------------------------
-# COMPANY PEERS
-# ---------------------------------------------------------
-
 @router.get("/company/{ticker}")
 def company_peers(ticker: str):
+    """Retrieve peer mapping information for a specific company ticker."""
 
     df = clean_df(get_company_peer(ticker))
 
@@ -108,12 +87,9 @@ def company_peers(ticker: str):
     return df.to_dict(orient="records")
 
 
-# ---------------------------------------------------------
-# PEER COMPANIES
-# ---------------------------------------------------------
-
 @router.get("/companies/{group}")
 def peer_companies(group: str):
+    """Retrieve detailed company profiles belonging to a specific peer group."""
 
     df = clean_df(get_peer_companies(group))
 
@@ -130,12 +106,9 @@ def peer_companies(group: str):
     }
 
 
-# ---------------------------------------------------------
-# PEER PERCENTILES
-# ---------------------------------------------------------
-
 @router.get("/percentiles")
 def percentiles():
+    """Retrieve peer percentile rankings for all tracked companies and metrics."""
 
     df = clean_df(get_peer_percentiles())
 

@@ -2,6 +2,8 @@ import pandas as pd
 
 
 def normalize(series):
+    """Min-max scale a Pandas series to a range between 0 and 100."""
+
     minimum = series.min()
     maximum = series.max()
 
@@ -11,10 +13,8 @@ def normalize(series):
     return ((series - minimum) / (maximum - minimum)) * 100
 
 
-import pandas as pd
-
-
 def calculate_score(df):
+    """Calculate composite quality scores across numeric columns and sort descending."""
 
     numeric_cols = df.select_dtypes(include="number").columns
 
@@ -22,13 +22,6 @@ def calculate_score(df):
         df["composite_quality_score"] = 0
         return df
 
-    df["composite_quality_score"] = (
-        df[numeric_cols]
-        .fillna(0)
-        .sum(axis=1)
-    )
+    df["composite_quality_score"] = df[numeric_cols].fillna(0).sum(axis=1)
 
-    return df.sort_values(
-        "composite_quality_score",
-        ascending=False
-    )
+    return df.sort_values("composite_quality_score", ascending=False)

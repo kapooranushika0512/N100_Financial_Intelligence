@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException
 import pandas as pd
+from fastapi import APIRouter, HTTPException
 
 from src.dashboard.utils.db import (
     get_companies,
@@ -14,11 +14,8 @@ router = APIRouter(
 )
 
 
-# ---------------------------------------------------------
-# HELPERS
-# ---------------------------------------------------------
-
 def clean_df(df: pd.DataFrame):
+    """Replace NaN values with None in a DataFrame for JSON serialization."""
 
     if df is None or df.empty:
         return df
@@ -30,6 +27,7 @@ def clean_df(df: pd.DataFrame):
 
 
 def build_screener():
+    """Build and merge companies, ratios, sectors, and market cap data for screening."""
 
     companies = clean_df(get_companies())
     ratios = clean_df(get_latest_ratios())
@@ -76,12 +74,9 @@ def build_screener():
     return clean_df(df)
 
 
-# ---------------------------------------------------------
-# COMPLETE SCREENER
-# ---------------------------------------------------------
-
 @router.get("/")
 def screener():
+    """Retrieve complete stock screener data across all companies."""
 
     df = build_screener()
 
@@ -94,12 +89,9 @@ def screener():
     return df.to_dict(orient="records")
 
 
-# ---------------------------------------------------------
-# COMPANY SCREENER
-# ---------------------------------------------------------
-
 @router.get("/{ticker}")
 def screener_company(ticker: str):
+    """Retrieve screener metrics for a specific company ticker."""
 
     df = build_screener()
 
@@ -112,9 +104,7 @@ def screener_company(ticker: str):
         )
 
     return df.iloc[0].to_dict()
-# ---------------------------------------------------------
-# FILTERED SCREENER
-# ---------------------------------------------------------
+
 
 @router.get("/filter/")
 def screener_filter(
@@ -124,40 +114,25 @@ def screener_filter(
     min_npm: float | None = None,
     market_cap_category: str | None = None,
 ):
+    """Filter company screener records based on specified financial metrics."""
 
     df = build_screener()
 
     if sector:
-        df = df[
-            df["broad_sector"]
-            .astype(str)
-            .str.lower()
-            == sector.lower()
-        ]
+        df = df[df["broad_sector"].astype(str).str.lower() == sector.lower()]
 
     if min_roe is not None and "return_on_equity_pct" in df.columns:
-        df = df[
-            df["return_on_equity_pct"].fillna(0) >= min_roe
-        ]
+        df = df[df["return_on_equity_pct"].fillna(0) >= min_roe]
 
     if max_debt is not None and "debt_to_equity" in df.columns:
-        df = df[
-            df["debt_to_equity"].fillna(99999) <= max_debt
-        ]
+        df = df[df["debt_to_equity"].fillna(99999) <= max_debt]
 
     if min_npm is not None and "net_profit_margin_pct" in df.columns:
-        df = df[
-            df["net_profit_margin_pct"].fillna(-99999) >= min_npm
-        ]
+        df = df[df["net_profit_margin_pct"].fillna(-99999) >= min_npm]
 
-    if (
-        market_cap_category
-        and "market_cap_category" in df.columns
-    ):
+    if market_cap_category and "market_cap_category" in df.columns:
         df = df[
-            df["market_cap_category"]
-            .astype(str)
-            .str.lower()
+            df["market_cap_category"].astype(str).str.lower()
             == market_cap_category.lower()
         ]
 
@@ -167,45 +142,31 @@ def screener_filter(
         "count": len(df),
         "companies": df.to_dict(orient="records"),
     }
-# ---------------------------------------------------------
-# ALL SECTORS
-# ---------------------------------------------------------
+
 
 @router.get("/sectors/list")
 def screener_sectors():
+    """Retrieve a list of unique broad sectors available in the screener."""
 
     df = build_screener()
 
     if "broad_sector" not in df.columns:
         return []
 
-    sectors = (
-        df["broad_sector"]
-        .dropna()
-        .sort_values()
-        .unique()
-        .tolist()
-    )
+    sectors = df["broad_sector"].dropna().sort_values().unique().tolist()
 
     return sectors
-# ---------------------------------------------------------
-# MARKET CAP CATEGORIES
-# ---------------------------------------------------------
+
 
 @router.get("/marketcap/list")
 def market_caps():
+    """Retrieve a list of unique market capitalization categories available in the screener."""
 
     df = build_screener()
 
     if "market_cap_category" not in df.columns:
         return []
 
-    caps = (
-        df["market_cap_category"]
-        .dropna()
-        .sort_values()
-        .unique()
-        .tolist()
-    )
+    caps = df["market_cap_category"].dropna().sort_values().unique().tolist()
 
     return caps

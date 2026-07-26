@@ -1,5 +1,6 @@
 import os
 import sqlite3
+
 import pandas as pd
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
@@ -15,6 +16,7 @@ GOLD = PatternFill(fill_type="solid", start_color="FFD966")
 
 
 def load_data():
+    """Load financial ratios, market cap, analysis, and peer group data from the database."""
     conn = sqlite3.connect(DB_PATH)
 
     ratios = pd.read_sql("SELECT * FROM financial_ratios", conn)
@@ -39,43 +41,24 @@ def load_data():
     if "year" in peer_percentiles.columns:
         peer_percentiles["year"] = peer_percentiles["year"].astype(str)
 
-    df = ratios.merge(
-        peer_groups,
-        on="company_id",
-        how="left",
-        suffixes=("", "_peer")
-    )
+    df = ratios.merge(peer_groups, on="company_id", how="left", suffixes=("", "_peer"))
 
     if "year" in market.columns:
-        df = df.merge(
-            market,
-            on=["company_id", "year"],
-            how="left"
-        )
+        df = df.merge(market, on=["company_id", "year"], how="left")
     else:
-        df = df.merge(
-            market,
-            on="company_id",
-            how="left"
-        )
+        df = df.merge(market, on="company_id", how="left")
 
-    df = df.merge(
-        analysis,
-        on="company_id",
-        how="left"
-    )
+    df = df.merge(analysis, on="company_id", how="left")
 
     return df, peer_percentiles
 
 
 def export_excel(df, peer_percentiles, limit=None):
+    """Export peer comparison and percentile data to multi-sheet Excel workbooks."""
 
     os.makedirs("output", exist_ok=True)
 
-    writer = pd.ExcelWriter(
-        OUTPUT_FILE,
-        engine="openpyxl"
-    )
+    writer = pd.ExcelWriter(OUTPUT_FILE, engine="openpyxl")
 
     groups = sorted(df["peer_group_name"].dropna().unique())
 
@@ -87,23 +70,18 @@ def export_excel(df, peer_percentiles, limit=None):
         sheet = df[df["peer_group_name"] == group].copy()
 
         sheet = sheet.merge(
-            peer_percentiles[
-                ["company_id", "year", "metric", "percentile_rank"]
-            ],
+            peer_percentiles[["company_id", "year", "metric", "percentile_rank"]],
             on=["company_id", "year"],
-            how="left"
+            how="left",
         )
 
-        sheet.to_excel(
-            writer,
-            sheet_name=group[:31],
-            index=False
-        )
+        sheet.to_excel(writer, sheet_name=group[:31], index=False)
 
     writer.close()
 
 
 def apply_formatting():
+    """Apply conditional color fills to benchmark companies and percentile rankings in Excel."""
 
     wb = load_workbook(OUTPUT_FILE)
 
@@ -124,12 +102,10 @@ def apply_formatting():
 
         for row in range(2, ws.max_row + 1):
 
-            if benchmark_col:
+            if benchmark_col and ws.cell(row=row, column=benchmark_col).value == 1:
 
-                if ws.cell(row=row, column=benchmark_col).value == 1:
-
-                    for c in range(1, ws.max_column + 1):
-                        ws.cell(row=row, column=c).fill = GOLD
+                for c in range(1, ws.max_column + 1):
+                    ws.cell(row=row, column=c).fill = GOLD
 
             for col in percentile_cols:
 
@@ -149,6 +125,7 @@ def apply_formatting():
 
 
 def run(limit=None):
+    """Generate and format the peer comparison Excel report."""
 
     df, peer_percentiles = load_data()
 

@@ -22,15 +22,7 @@ TARGET_COLUMNS = [
 
 
 def parse_value(text):
-    """
-    Extract:
-    10 Years: 21%
-
-    returns
-
-    period = 10
-    value = 21
-    """
+    """Parse raw text string to extract time period years and percentage value."""
 
     if pd.isna(text):
         return None
@@ -44,6 +36,7 @@ def parse_value(text):
 
 
 def parse_analysis(df):
+    """Extract CAGR growth metrics and parse failure records from analysis text."""
 
     parsed_rows = []
     failures = []
@@ -86,6 +79,7 @@ def parse_analysis(df):
 
 
 def validate_against_ratios(parsed_df):
+    """Cross-validate parsed analysis metrics against calculated financial ratios."""
 
     ratios = get_ratios()
 
@@ -97,20 +91,14 @@ def validate_against_ratios(parsed_df):
 
     review = []
 
-    latest = (
-        ratios.sort_values("year")
-        .groupby("company_id")
-        .tail(1)
-    )
+    latest = ratios.sort_values("year").groupby("company_id").tail(1)
 
     for metric, ratio_col in ratio_map.items():
 
         if ratio_col not in latest.columns:
             continue
 
-        subset = parsed_df[
-            parsed_df.metric_type == metric
-        ]
+        subset = parsed_df[parsed_df.metric_type == metric]
 
         merged = subset.merge(
             latest[["company_id", ratio_col]],
@@ -118,15 +106,9 @@ def validate_against_ratios(parsed_df):
             how="left",
         )
 
-        merged["difference"] = (
-            merged["value_pct"] - merged[ratio_col]
-        ).abs()
+        merged["difference"] = (merged["value_pct"] - merged[ratio_col]).abs()
 
-        review.append(
-            merged[
-                merged["difference"] > 5
-            ]
-        )
+        review.append(merged[merged["difference"] > 5])
 
     if review:
 
@@ -136,6 +118,7 @@ def validate_against_ratios(parsed_df):
 
 
 def main():
+    """Execute the analysis parsing and cross-validation pipeline."""
 
     print("Loading analysis...")
 

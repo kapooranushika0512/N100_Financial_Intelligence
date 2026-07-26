@@ -1,22 +1,23 @@
-import streamlit as st
 import pandas as pd
 import plotly.express as px
-
+import streamlit as st
 from utils.db import (
     get_all_company_ids,
-    get_profit_loss,
-    get_cashflow,
     get_balance_sheet,
+    get_cashflow,
     get_company_cashflow_intelligence,
+    get_profit_loss,
 )
 
 
 def company_selector():
+    """Display a dropdown select box for choosing a company ticker."""
     companies = get_all_company_ids()
     return st.selectbox("Select Company", companies)
 
 
 def plot_table(df, title):
+    """Display a formatted dataframe table in Streamlit with a subheader."""
 
     st.subheader(title)
 
@@ -28,14 +29,12 @@ def plot_table(df, title):
 
 
 def plot_chart(df, title):
+    """Render an interactive Plotly line chart for a selected dataframe metric."""
 
     if df.empty:
         return
 
-    value_columns = [
-        c for c in df.columns
-        if c not in ["id", "company_id", "year"]
-    ]
+    value_columns = [c for c in df.columns if c not in ["id", "company_id", "year"]]
 
     if not value_columns:
         return
@@ -75,6 +74,7 @@ def plot_chart(df, title):
 
 
 def show():
+    """Display the Capital Allocation Streamlit dashboard page."""
 
     st.title("💰 Capital Allocation")
 
@@ -84,10 +84,6 @@ def show():
     cf = get_cashflow(company)
     bs = get_balance_sheet(company)
     intel = get_company_cashflow_intelligence(company)
-
-    # -------------------------------------------------------
-    # Cash Flow Intelligence
-    # -------------------------------------------------------
 
     if not intel.empty:
 
@@ -129,9 +125,8 @@ def show():
             "✅ Yes" if row["deleveraging_flag"] else "❌ No",
         )
 
-        if (
-            "capital_allocation_label" in intel.columns
-            and pd.notna(row["capital_allocation_label"])
+        if "capital_allocation_label" in intel.columns and pd.notna(
+            row["capital_allocation_label"]
         ):
             st.success(
                 f"Capital Allocation Pattern: **{row['capital_allocation_label']}**"
@@ -142,10 +137,6 @@ def show():
     else:
         st.info("Cash Flow Intelligence data not available.")
 
-    # -------------------------------------------------------
-    # Tabs
-    # -------------------------------------------------------
-
     tab1, tab2, tab3 = st.tabs(
         [
             "📈 Profit & Loss",
@@ -154,28 +145,17 @@ def show():
         ]
     )
 
-    # -------------------------------------------------------
-    # Profit & Loss
-    # -------------------------------------------------------
-
     with tab1:
 
         plot_table(pl, "Profit & Loss")
         plot_chart(pl, "Profit & Loss")
-
-    # -------------------------------------------------------
-    # Cash Flow
-    # -------------------------------------------------------
 
     with tab2:
 
         plot_table(cf, "Cash Flow")
         plot_chart(cf, "Cash Flow")
 
-        if (
-            not cf.empty
-            and "net_cash_flow" in cf.columns
-        ):
+        if not cf.empty and "net_cash_flow" in cf.columns:
 
             chart_df = cf.copy()
 
@@ -203,10 +183,6 @@ def show():
                 fig,
                 use_container_width=True,
             )
-
-    # -------------------------------------------------------
-    # Balance Sheet
-    # -------------------------------------------------------
 
     with tab3:
 

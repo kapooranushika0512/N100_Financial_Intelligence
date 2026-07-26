@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import pandas as pd
 
 OUTPUT_DIR = Path("output")
@@ -8,16 +9,16 @@ PROS_CONS_FILE = OUTPUT_DIR / "pros_cons_generated.csv"
 
 
 def load_pros_cons():
+    """Load the generated pros and cons CSV dataset from the output directory."""
 
     if not PROS_CONS_FILE.exists():
-        raise FileNotFoundError(
-            "pros_cons_generated.csv not found. Run Day 30 first."
-        )
+        raise FileNotFoundError("pros_cons_generated.csv not found. Run Day 30 first.")
 
     return pd.read_csv(PROS_CONS_FILE)
 
 
 def get_recommendation(score):
+    """Determine the investment recommendation and confidence level based on score thresholds."""
 
     if score >= 3.5:
         return "Strong Buy", 0.95
@@ -35,6 +36,7 @@ def get_recommendation(score):
 
 
 def generate():
+    """Calculate confidence-weighted scores and generate investment recommendations."""
 
     df = load_pros_cons()
 
@@ -52,24 +54,13 @@ def generate():
         pros = len(pros_df)
         cons = len(cons_df)
 
-        score = (
-            pros_df["confidence"].sum()
-            - cons_df["confidence"].sum()
-        )
+        score = pros_df["confidence"].sum() - cons_df["confidence"].sum()
 
         recommendation, confidence = get_recommendation(score)
 
-        top_pros = (
-            pros_df
-            .head(2)["reason"]
-            .tolist()
-        )
+        top_pros = pros_df.head(2)["reason"].tolist()
 
-        top_cons = (
-            cons_df
-            .head(2)["reason"]
-            .tolist()
-        )
+        top_cons = cons_df.head(2)["reason"].tolist()
 
         results.append(
             {
@@ -87,8 +78,7 @@ def generate():
     recommendations = pd.DataFrame(results)
 
     recommendations = recommendations.sort_values(
-        ["score", "company_id"],
-        ascending=[False, True]
+        ["score", "company_id"], ascending=[False, True]
     )
 
     recommendations.to_csv(
@@ -103,10 +93,7 @@ def generate():
 
     print()
 
-    print(
-        recommendations["recommendation"]
-        .value_counts()
-    )
+    print(recommendations["recommendation"].value_counts())
 
 
 if __name__ == "__main__":

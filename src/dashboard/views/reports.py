@@ -1,6 +1,5 @@
-import streamlit as st
 import pandas as pd
-
+import streamlit as st
 from utils.db import (
     get_all_company_ids,
     get_documents,
@@ -8,6 +7,7 @@ from utils.db import (
 
 
 def company_selector():
+    """Render a dropdown select box for choosing a company ticker."""
 
     companies = get_all_company_ids()
 
@@ -18,6 +18,7 @@ def company_selector():
 
 
 def show_reports(df):
+    """Display a formatted dataframe containing company annual report document links."""
 
     st.subheader("Annual Reports")
 
@@ -49,6 +50,7 @@ def show_reports(df):
 
 
 def show():
+    """Display the Annual Reports Streamlit dashboard page."""
 
     st.title("📄 Annual Reports")
 

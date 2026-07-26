@@ -1,0 +1,234 @@
+src/screener/presets.py:def list_presets():
+src/screener/presets.py:def apply_preset(name):
+src/screener/scoring.py:def normalize(series):
+src/screener/scoring.py:def calculate_score(df):
+src/screener/engine.py:def load_config():
+src/screener/engine.py:def load_ratios():
+src/screener/engine.py:def apply_filters(df, filters):
+src/screener/engine.py:def add_composite_score(df):
+src/screener/engine.py:def run():
+src/etl/validator.py:def add_failure(failures, table, rule, row_no, severity="CRITICAL"):
+src/etl/validator.py:def check_duplicate_id(df, table_name):
+src/etl/validator.py:def check_company_year_duplicate(df, table_name):
+src/etl/validator.py:def check_null_company_id(df, table_name):
+src/etl/validator.py:def check_balance_sheet(df):
+src/etl/validator.py:def check_opm(df):
+src/etl/validator.py:def check_positive_sales(df):
+src/etl/validator.py:def run_validation():
+src/etl/create_database.py:def create_database():
+src/etl/normaliser.py:def normalize_ticker(value):
+src/etl/normaliser.py:def normalize_year(value):
+src/etl/normaliser.py:def normalize_columns(df):
+src/etl/loader.py:def load_excel(file_path, header_row):
+src/etl/loader.py:def load_all_files():
+src/etl/loader.py:def print_summary(datasets):
+src/etl/load_to_sqlite.py:def load_excel(file_path, header_row):
+src/dashboard/utils/db.py:def query(sql, params=None):
+src/dashboard/utils/db.py:def get_companies():
+src/dashboard/utils/db.py:def get_ratios():
+src/dashboard/utils/db.py:def get_sectors():
+src/dashboard/utils/db.py:def get_analysis():
+src/dashboard/utils/db.py:def get_company(company_id):
+src/dashboard/utils/db.py:def get_company_ratios(company_id):
+src/dashboard/utils/db.py:def get_company_sector(company_id):
+src/dashboard/utils/db.py:def get_company_pros_cons(company_id):
+src/dashboard/utils/db.py:def get_profit_loss(company_id):
+src/dashboard/utils/db.py:def get_cashflow(company_id):
+src/dashboard/utils/db.py:def get_balance_sheet(company_id):
+src/dashboard/utils/db.py:def get_documents(company_id):
+src/dashboard/utils/db.py:def get_all_company_ids():
+src/dashboard/utils/db.py:def get_latest_ratios():
+src/dashboard/utils/db.py:def get_latest_ratio(company_id):
+src/dashboard/utils/db.py:def get_market_cap():
+src/dashboard/utils/db.py:def get_market_cap_latest():
+src/dashboard/utils/db.py:def get_peer_groups():
+src/dashboard/utils/db.py:def get_peer_group(group):
+src/dashboard/utils/db.py:def get_company_peer(company_id):
+src/dashboard/utils/db.py:def get_peer_percentiles():
+src/dashboard/utils/db.py:def get_peer_companies(group):
+src/dashboard/utils/db.py:def get_cashflow_intelligence():
+src/dashboard/utils/db.py:def get_company_cashflow_intelligence(company):
+src/dashboard/views/capital.py:def company_selector():
+src/dashboard/views/capital.py:def plot_table(df, title):
+src/dashboard/views/capital.py:def plot_chart(df, title):
+src/dashboard/views/capital.py:def show():
+src/dashboard/views/home.py:def show():
+src/dashboard/views/profile.py:def render_company_header(company, sector, company_id):
+src/dashboard/views/profile.py:def render_kpi_cards(ratios):
+src/dashboard/views/profile.py:def render_revenue_profit_chart(pl):
+src/dashboard/views/profile.py:def render_roe_roce_chart(ratios, company):
+src/dashboard/views/profile.py:def render_pros_cons(pros_cons):
+src/dashboard/views/profile.py:def render_ratio_table(ratios):
+src/dashboard/views/profile.py:def render_profit_loss_table(pl):
+src/dashboard/views/profile.py:def show():
+src/dashboard/views/screener.py:def load_data():
+src/dashboard/views/screener.py:def preset_filters():
+src/dashboard/views/screener.py:def sidebar_filters(df):
+src/dashboard/views/screener.py:def apply_filters(df, filters):
+src/dashboard/views/screener.py:def render_table(df):
+src/dashboard/views/screener.py:def csv_download(df):
+src/dashboard/views/screener.py:def show():
+src/dashboard/views/peers.py:def load_data():
+src/dashboard/views/peers.py:def peer_selector(peer_groups):
+src/dashboard/views/peers.py:def company_selector(selected_group):
+src/dashboard/views/peers.py:def create_radar_chart(selected_group, company):
+src/dashboard/views/peers.py:def peer_table(selected_group):
+src/dashboard/views/peers.py:def show():
+src/dashboard/views/valuation.py:def load_data():
+src/dashboard/views/valuation.py:def company_selector(df):
+src/dashboard/views/valuation.py:def calculate_flag(company_row, df):
+src/dashboard/views/valuation.py:def valuation_dashboard(company_row, sector_pe, flag):
+src/dashboard/views/valuation.py:def show():
+src/dashboard/views/reports.py:def company_selector():
+src/dashboard/views/reports.py:def show_reports(df):
+src/dashboard/views/reports.py:def show():
+src/dashboard/views/trends.py:def company_selector():
+src/dashboard/views/trends.py:def load_data(company):
+src/dashboard/views/trends.py:def metric_selector(df):
+src/dashboard/views/trends.py:def trend_chart(df, metrics):
+src/dashboard/views/trends.py:def show():
+src/dashboard/views/sectors.py:def load_data():
+src/dashboard/views/sectors.py:def sector_selector(df):
+src/dashboard/views/sectors.py:def bubble_chart(df, sector):
+src/dashboard/views/sectors.py:def show():
+src/dashboard/views/ai_insights.py:def load_data():
+src/dashboard/views/ai_insights.py:def recommendation_banner(rec):
+src/dashboard/views/ai_insights.py:def show():
+src/nlp/recommendation_engine.py:def load_pros_cons():
+src/nlp/recommendation_engine.py:def get_recommendation(score):
+src/nlp/recommendation_engine.py:def generate():
+src/nlp/summary_generator.py:def load_data():
+src/nlp/summary_generator.py:def build_summary(row):
+src/nlp/summary_generator.py:def generate():
+src/nlp/parser.py:def parse_value(text):
+src/nlp/parser.py:def parse_analysis(df):
+src/nlp/parser.py:def validate_against_ratios(parsed_df):
+src/nlp/parser.py:def main():
+src/nlp/pros_cons_generator.py:def latest_ratios():
+src/nlp/pros_cons_generator.py:def load_growth_metrics():
+src/nlp/pros_cons_generator.py:def add(items, company, typ, reason, confidence):
+src/nlp/pros_cons_generator.py:def generate():
+src/api/routers/health.py:def get_connection():
+src/api/routers/health.py:def health():
+src/api/routers/documents.py:def clean_df(df):
+src/api/routers/documents.py:def check_url(url):
+src/api/routers/documents.py:def all_documents():
+src/api/routers/documents.py:def company_documents(ticker: str):
+src/api/routers/screener.py:def clean_df(df: pd.DataFrame):
+src/api/routers/screener.py:def build_screener():
+src/api/routers/screener.py:def screener():
+src/api/routers/screener.py:def screener_company(ticker: str):
+src/api/routers/screener.py:def screener_filter(
+src/api/routers/screener.py:def screener_sectors():
+src/api/routers/screener.py:def market_caps():
+src/api/routers/peers.py:def clean_df(df):
+src/api/routers/peers.py:def peer_groups():
+src/api/routers/peers.py:def peer_group_names():
+src/api/routers/peers.py:def peer_group(group: str):
+src/api/routers/peers.py:def company_peers(ticker: str):
+src/api/routers/peers.py:def peer_companies(group: str):
+src/api/routers/peers.py:def percentiles():
+src/api/routers/valuation.py:def clean_df(df):
+src/api/routers/valuation.py:def latest_valuations():
+src/api/routers/valuation.py:def company_valuation(ticker: str):
+src/api/routers/valuation.py:def latest_company_valuation(ticker: str):
+src/api/routers/market_cap.py:def clean_df(df):
+src/api/routers/market_cap.py:def market_cap_history(ticker: str):
+src/api/routers/companies.py:def clean_df(df: pd.DataFrame):
+src/api/routers/companies.py:def build_company_dataframe():
+src/api/routers/companies.py:def list_companies():
+src/api/routers/companies.py:def company_profile(ticker: str):
+src/api/routers/companies.py:def company_profit_loss(
+src/api/routers/companies.py:def company_balance_sheet(
+src/api/routers/companies.py:def company_cashflow(
+src/api/routers/companies.py:def company_ratios(
+src/api/routers/companies.py:def company_documents(ticker: str):
+src/api/routers/companies.py:def company_tearsheet(ticker: str):
+src/api/routers/companies.py:def ping():
+src/api/routers/sectors.py:def clean_df(df):
+src/api/routers/sectors.py:def build_sector_dataframe():
+src/api/routers/sectors.py:def all_sectors():
+src/api/routers/sectors.py:def sector_list():
+src/api/routers/sectors.py:def companies_by_sector(sector: str):
+src/api/routers/sectors.py:def companies_by_subsector(subsector: str):
+src/api/routers/sectors.py:def market_cap_category(category: str):
+src/api/routers/portfolio.py:def clean_df(df):
+src/api/routers/portfolio.py:def portfolio_stats():
+src/api/routers/portfolio.py:def portfolio_summary():
+src/api/main.py:def root():
+src/validation/sprint3_review.py:def check_outputs():
+src/validation/sprint3_review.py:def check_database():
+src/validation/sprint3_review.py:def run():
+src/analytics/capital_allocation.py:def sign(value):
+src/analytics/capital_allocation.py:def classify(cfo, cfi, cff):
+src/analytics/capital_allocation.py:def main():
+src/analytics/cashflow_kpis.py:def load_data():
+src/analytics/cashflow_kpis.py:def prepare_dataframe():
+src/analytics/cashflow_kpis.py:def cfo_quality_label(score):
+src/analytics/cashflow_kpis.py:def capex_label(value):
+src/analytics/cashflow_kpis.py:def free_cash_flow(cfo, capex):
+src/analytics/cashflow_kpis.py:def cfo_quality_score(cfo, pat):
+src/analytics/cashflow_kpis.py:def capex_intensity(capex, revenue):
+src/analytics/cashflow_kpis.py:def fcf_conversion_rate(fcf, pat):
+src/analytics/cashflow_kpis.py:def calculate_cagr(values):
+src/analytics/cashflow_kpis.py:def calculate_kpis(df):
+src/analytics/cashflow_kpis.py:def export_results(latest):
+src/analytics/cashflow_kpis.py:def main():
+src/analytics/clusterring.py:def load_data():
+src/analytics/clusterring.py:def sector_imputation(df):
+src/analytics/clusterring.py:def preprocess(df):
+src/analytics/clusterring.py:def generate_elbow_plot(X):
+src/analytics/clusterring.py:def assign_cluster_names(profile):
+src/analytics/clusterring.py:def perform_clustering(df, X):
+src/analytics/clusterring.py:def save_cluster_labels(df):
+src/analytics/clusterring.py:def save_cluster_profile(profile):
+src/analytics/clusterring.py:def main():
+src/analytics/radar.py:def load_data():
+src/analytics/radar.py:def draw_radar(company_row, peer_avg, company_id):
+src/analytics/radar.py:def run(limit=None):
+src/analytics/cluster_analysis.py:def load_data():
+src/analytics/cluster_analysis.py:def preprocess(df):
+src/analytics/cluster_analysis.py:def generate_correlation_heatmap(df):
+src/analytics/cluster_analysis.py:def generate_portfolio_statistics(df):
+src/analytics/cluster_analysis.py:def detect_outliers(df):
+src/analytics/cluster_analysis.py:def main():
+src/analytics/peer.py:def load_data():
+src/analytics/peer.py:def percentile(series, reverse=False):
+src/analytics/peer.py:def compute_percentiles(df):
+src/analytics/peer.py:def save_sqlite(df):
+src/analytics/peer.py:def run():
+src/analytics/valuation.py:def load_data():
+src/analytics/valuation.py:def calculate_fcf_yield(df):
+src/analytics/valuation.py:def calculate_sector_pe(df):
+src/analytics/valuation.py:def assign_flag(df):
+src/analytics/valuation.py:def export_results(df):
+src/analytics/peer_report.py:def load_data():
+src/analytics/peer_report.py:def export_excel(df, peer_percentiles, limit=None):
+src/analytics/peer_report.py:def apply_formatting():
+src/analytics/peer_report.py:def run(limit=None):
+src/analytics/cagr.py:def calculate_cagr(
+src/analytics/cagr.py:def revenue_cagr(
+src/analytics/cagr.py:def pat_cagr(
+src/analytics/cagr.py:def eps_cagr(
+src/analytics/ratios.py:def safe_divide(numerator, denominator):
+src/analytics/ratios.py:def net_profit_margin(net_profit, sales):
+src/analytics/ratios.py:def operating_profit_margin(operating_profit, sales):
+src/analytics/ratios.py:def validate_opm(calculated_opm, source_opm):
+src/analytics/ratios.py:def return_on_equity(
+src/analytics/ratios.py:def return_on_capital_employed(
+src/analytics/ratios.py:def return_on_assets(
+src/analytics/ratios.py:def debt_to_equity(
+src/analytics/ratios.py:def high_leverage_flag(
+src/analytics/ratios.py:def interest_coverage(
+src/analytics/ratios.py:def icr_label(icr):
+src/analytics/ratios.py:def icr_warning(icr):
+src/analytics/ratios.py:def net_debt(
+src/analytics/ratios.py:def asset_turnover(
+src/reports/portfolio_summary.py:def generate_portfolio_summary():
+src/reports/charts.py:def revenue_profit_chart(pl_df, company):
+src/reports/charts.py:def roe_chart(ratio_df, company):
+src/reports/tearsheet.py:def latest(df):
+src/reports/tearsheet.py:def value(row, column, suffix=""):
+src/reports/tearsheet.py:def create_tearsheet(company_id):
+src/reports/sector_report.py:def generate_sector_report():
+src/reports/batch_generate.py:def generate_all_reports():

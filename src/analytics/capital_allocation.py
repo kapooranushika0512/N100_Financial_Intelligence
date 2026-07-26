@@ -1,16 +1,19 @@
 import sqlite3
+
 import pandas as pd
 
 DB_PATH = "db/nifty100.db"
 
 
 def sign(value):
+    """Return the sign of a numeric value as '+', '-', or '0'."""
     if pd.isna(value):
         return "0"
     return "+" if value >= 0 else "-"
 
 
 def classify(cfo, cfi, cff):
+    """Classify the cash flow pattern based on CFO, CFI, and CFF signs."""
     pattern = (cfo, cfi, cff)
 
     mapping = {
@@ -28,31 +31,19 @@ def classify(cfo, cfi, cff):
 
 
 def main():
+    """Generate the capital allocation report for all companies."""
 
     conn = sqlite3.connect(DB_PATH)
 
-    df = pd.read_sql(
-        "SELECT * FROM cashflow",
-        conn
-    )
+    df = pd.read_sql("SELECT * FROM cashflow", conn)
 
     conn.close()
 
-    df["year_num"] = (
-        df["year"]
-        .astype(str)
-        .str.extract(r"(\d{2})$")
-        .astype(int)
-    )
+    df["year_num"] = df["year"].astype(str).str.extract(r"(\d{2})$").astype(int)
 
     df["year_num"] += 2000
 
-    latest = (
-        df.sort_values("year_num")
-          .groupby("company_id")
-          .tail(1)
-          .copy()
-    )
+    latest = df.sort_values("year_num").groupby("company_id").tail(1).copy()
 
     latest["cfo_sign"] = latest["operating_activity"].apply(sign)
     latest["cfi_sign"] = latest["investing_activity"].apply(sign)

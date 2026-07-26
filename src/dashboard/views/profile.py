@@ -1,17 +1,18 @@
-import streamlit as st
 import pandas as pd
-import plotly.express as px
 import plotly.graph_objects as go
-
+import streamlit as st
 from utils.db import (
     get_all_company_ids,
     get_company,
+    get_company_pros_cons,
     get_company_ratios,
     get_company_sector,
-    get_company_pros_cons,
     get_profit_loss,
 )
+
+
 def render_company_header(company, sector, company_id):
+    """Render the header section containing company metadata, logo, and description."""
 
     left, right = st.columns([1, 4])
 
@@ -19,17 +20,12 @@ def render_company_header(company, sector, company_id):
 
         logo = company["company_logo"]
 
-        # Temporary: show the logo URL for debugging
         st.write("Logo URL:", logo)
 
-        if (
-            pd.notna(logo)
-            and isinstance(logo, str)
-            and logo.startswith("http")
-        ):
+        if pd.notna(logo) and isinstance(logo, str) and logo.startswith("http"):
             try:
                 st.image(logo, width=120)
-            except Exception as e:
+            except (ValueError, RuntimeError, st.errors.StreamlitAPIException) as e:
                 st.error(e)
                 st.markdown("# 🏢")
         else:
@@ -44,13 +40,9 @@ def render_company_header(company, sector, company_id):
         if not sector.empty:
             sector = sector.iloc[0]
 
-            st.write(
-                f"**Sector:** {sector['broad_sector']}"
-            )
+            st.write(f"**Sector:** {sector['broad_sector']}")
 
-            st.write(
-                f"**Sub Sector:** {sector['sub_sector']}"
-            )
+            st.write(f"**Sub Sector:** {sector['sub_sector']}")
 
         st.write(company["about_company"])
 
@@ -67,7 +59,10 @@ def render_company_header(company, sector, company_id):
             )
 
     st.divider()
+
+
 def render_kpi_cards(ratios):
+    """Display key financial ratio metrics in a grid layout."""
 
     st.divider()
 
@@ -83,40 +78,25 @@ def render_kpi_cards(ratios):
 
     with c1:
 
-        st.metric(
-            "ROE %",
-            round(latest["return_on_equity_pct"], 2)
-        )
+        st.metric("ROE %", round(latest["return_on_equity_pct"], 2))
 
-        st.metric(
-            "Net Profit Margin %",
-            round(latest["net_profit_margin_pct"], 2)
-        )
+        st.metric("Net Profit Margin %", round(latest["net_profit_margin_pct"], 2))
 
     with c2:
 
-        st.metric(
-            "Operating Margin %",
-            round(latest["operating_profit_margin_pct"], 2)
-        )
+        st.metric("Operating Margin %", round(latest["operating_profit_margin_pct"], 2))
 
-        st.metric(
-            "Debt / Equity",
-            round(latest["debt_to_equity"], 2)
-        )
+        st.metric("Debt / Equity", round(latest["debt_to_equity"], 2))
 
     with c3:
 
-        st.metric(
-            "Interest Coverage",
-            round(latest["interest_coverage"], 2)
-        )
+        st.metric("Interest Coverage", round(latest["interest_coverage"], 2))
 
-        st.metric(
-            "Free Cash Flow (₹ Cr)",
-            round(latest["free_cash_flow_cr"], 2)
-        )
+        st.metric("Free Cash Flow (₹ Cr)", round(latest["free_cash_flow_cr"], 2))
+
+
 def render_revenue_profit_chart(pl):
+    """Render a bar chart comparing annual revenue and net profit trends."""
 
     st.divider()
 
@@ -157,7 +137,10 @@ def render_revenue_profit_chart(pl):
         fig,
         width="stretch",
     )
+
+
 def render_roe_roce_chart(ratios, company):
+    """Render a line chart displaying historical ROE and current ROCE benchmarks."""
 
     st.divider()
 
@@ -175,7 +158,7 @@ def render_roe_roce_chart(ratios, company):
             y=ratios["return_on_equity_pct"],
             mode="lines+markers",
             name="ROE %",
-            line=dict(width=3),
+            line={"width": 3},
         )
     )
 
@@ -187,10 +170,10 @@ def render_roe_roce_chart(ratios, company):
             y=[roce] * len(ratios),
             mode="lines",
             name="Current ROCE %",
-            line=dict(
-                dash="dash",
-                width=3,
-            ),
+            line={
+                "dash": "dash",
+                "width": 3,
+            },
         )
     )
 
@@ -207,7 +190,10 @@ def render_roe_roce_chart(ratios, company):
         fig,
         width="stretch",
     )
+
+
 def render_pros_cons(pros_cons):
+    """Display company pros and cons in side-by-side comparative columns."""
 
     st.divider()
 
@@ -256,7 +242,10 @@ def render_pros_cons(pros_cons):
 
             else:
                 st.info("No cons available.")
+
+
 def render_ratio_table(ratios):
+    """Display historical financial ratios in a structured data table."""
 
     st.divider()
 
@@ -295,7 +284,10 @@ def render_ratio_table(ratios):
         width="stretch",
         hide_index=True,
     )
+
+
 def render_profit_loss_table(pl):
+    """Display historical profit and loss data in a structured table."""
 
     st.divider()
 
@@ -333,10 +325,11 @@ def render_profit_loss_table(pl):
         hide_index=True,
     )
 
-    st.caption(
-        f"Showing {len(display)} financial years."
-    )
+    st.caption(f"Showing {len(display)} financial years.")
+
+
 def show():
+    """Display the main company profile dashboard view in Streamlit."""
 
     st.title("🏢 Company Profile")
 

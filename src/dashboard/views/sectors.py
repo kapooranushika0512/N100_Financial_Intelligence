@@ -1,15 +1,17 @@
-import streamlit as st
 import pandas as pd
 import plotly.express as px
-
+import streamlit as st
 from utils.db import (
-    get_latest_ratios,
     get_analysis,
     get_companies,
-    get_sectors,
+    get_latest_ratios,
     get_market_cap_latest,
+    get_sectors,
 )
+
+
 def load_data():
+    """Load and merge ratios, analysis, company metadata, sectors, and market cap metrics."""
 
     ratios = get_latest_ratios()
     analysis = get_analysis()
@@ -22,8 +24,7 @@ def load_data():
     market = market.drop(columns=["id"], errors="ignore")
 
     df = (
-        ratios
-        .merge(
+        ratios.merge(
             analysis,
             on="company_id",
             how="left",
@@ -49,23 +50,23 @@ def load_data():
     )
 
     return df
-def sector_selector(df):
 
-    sectors = sorted(
-        df["broad_sector"]
-        .dropna()
-        .unique()
-    )
+
+def sector_selector(df):
+    """Render a select box for choosing a broad sector from the dataframe."""
+
+    sectors = sorted(df["broad_sector"].dropna().unique())
 
     return st.selectbox(
         "Select Sector",
         sectors,
     )
-def bubble_chart(df, sector):
 
-    sector_df = df[
-        df["broad_sector"] == sector
-    ].copy()
+
+def bubble_chart(df, sector):
+    """Generate and display a bubble chart comparing FCF, ROE, and market cap for a sector."""
+
+    sector_df = df[df["broad_sector"] == sector].copy()
 
     sector_df["free_cash_flow_cr"] = pd.to_numeric(
         sector_df["free_cash_flow_cr"],
@@ -90,9 +91,7 @@ def bubble_chart(df, sector):
         ]
     )
 
-    sector_df = sector_df[
-        sector_df["market_cap_crore"] > 0
-    ]
+    sector_df = sector_df[sector_df["market_cap_crore"] > 0]
 
     if sector_df.empty:
 
@@ -120,10 +119,10 @@ def bubble_chart(df, sector):
     )
 
     fig.update_traces(
-        marker=dict(
-            opacity=0.8,
-            line=dict(width=1, color="black"),
-        )
+        marker={
+            "opacity": 0.8,
+            "line": {"width": 1, "color": "black"},
+        }
     )
 
     fig.update_layout(
@@ -137,7 +136,10 @@ def bubble_chart(df, sector):
         fig,
         width="stretch",
     )
+
+
 def show():
+    """Display the Sector Analysis Streamlit dashboard page."""
 
     st.title("🏭 Sector Analysis")
 

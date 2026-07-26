@@ -1,12 +1,11 @@
-import streamlit as st
 import pandas as pd
-
+import streamlit as st
 from utils.db import (
-    get_latest_ratios,
     get_analysis,
     get_companies,
-    get_sectors,
+    get_latest_ratios,
     get_market_cap_latest,
+    get_sectors,
 )
 
 
@@ -18,9 +17,7 @@ def load_data():
     sectors = get_sectors()
     market = get_market_cap_latest()
 
-    companies = companies.rename(
-        columns={"id": "company_id"}
-    )
+    companies = companies.rename(columns={"id": "company_id"})
 
     sectors = sectors.drop(
         columns=["id"],
@@ -33,8 +30,7 @@ def load_data():
     )
 
     df = (
-        ratios
-        .merge(
+        ratios.merge(
             analysis,
             on="company_id",
             how="left",
@@ -91,7 +87,7 @@ def preset_filters():
 
     st.sidebar.subheader("⭐ Presets")
 
-    preset = st.sidebar.radio(
+    return st.sidebar.radio(
         "Choose a Preset",
         [
             "Custom",
@@ -104,12 +100,10 @@ def preset_filters():
         ],
     )
 
-    return preset
-
 
 def sidebar_filters(df):
 
-    preset = preset_filters()
+    _ = preset_filters()
 
     st.sidebar.divider()
     st.sidebar.header("📊 Stock Screener")
@@ -202,55 +196,39 @@ def apply_filters(df, filters):
     filtered["return_on_equity_pct"] = filtered["return_on_equity_pct"].fillna(0)
     filtered["debt_to_equity"] = filtered["debt_to_equity"].fillna(999)
     filtered["free_cash_flow_cr"] = filtered["free_cash_flow_cr"].fillna(0)
-    filtered["compounded_sales_growth"] = filtered["compounded_sales_growth"].fillna(-50)
-    filtered["compounded_profit_growth"] = filtered["compounded_profit_growth"].fillna(-50)
-    filtered["operating_profit_margin_pct"] = filtered["operating_profit_margin_pct"].fillna(0)
+    filtered["compounded_sales_growth"] = filtered["compounded_sales_growth"].fillna(
+        -50
+    )
+    filtered["compounded_profit_growth"] = filtered["compounded_profit_growth"].fillna(
+        -50
+    )
+    filtered["operating_profit_margin_pct"] = filtered[
+        "operating_profit_margin_pct"
+    ].fillna(0)
     filtered["pe_ratio"] = filtered["pe_ratio"].fillna(999)
     filtered["pb_ratio"] = filtered["pb_ratio"].fillna(999)
     filtered["dividend_yield_pct"] = filtered["dividend_yield_pct"].fillna(0)
     filtered["interest_coverage"] = filtered["interest_coverage"].fillna(0)
 
-    filtered = filtered[
-        filtered["return_on_equity_pct"] >= filters["roe"]
-    ]
+    filtered = filtered[filtered["return_on_equity_pct"] >= filters["roe"]]
 
-    filtered = filtered[
-        filtered["debt_to_equity"] <= filters["de"]
-    ]
+    filtered = filtered[filtered["debt_to_equity"] <= filters["de"]]
 
-    filtered = filtered[
-        filtered["free_cash_flow_cr"] >= filters["fcf"]
-    ]
+    filtered = filtered[filtered["free_cash_flow_cr"] >= filters["fcf"]]
 
-    filtered = filtered[
-        filtered["compounded_sales_growth"] >= filters["sales"]
-    ]
+    filtered = filtered[filtered["compounded_sales_growth"] >= filters["sales"]]
 
-    filtered = filtered[
-        filtered["compounded_profit_growth"] >= filters["profit"]
-    ]
+    filtered = filtered[filtered["compounded_profit_growth"] >= filters["profit"]]
 
-    filtered = filtered[
-        filtered["operating_profit_margin_pct"] >= filters["opm"]
-    ]
+    filtered = filtered[filtered["operating_profit_margin_pct"] >= filters["opm"]]
 
-    filtered = filtered[
-        filtered["pe_ratio"] <= filters["pe"]
-    ]
+    filtered = filtered[filtered["pe_ratio"] <= filters["pe"]]
 
-    filtered = filtered[
-        filtered["pb_ratio"] <= filters["pb"]
-    ]
+    filtered = filtered[filtered["pb_ratio"] <= filters["pb"]]
 
-    filtered = filtered[
-        filtered["dividend_yield_pct"] >= filters["dividend"]
-    ]
+    filtered = filtered[filtered["dividend_yield_pct"] >= filters["dividend"]]
 
-    filtered = filtered[
-        filtered["interest_coverage"] >= filters["icr"]
-    ]
-
-    return filtered
+    return filtered[filtered["interest_coverage"] >= filters["icr"]]
 
 
 def render_table(df):

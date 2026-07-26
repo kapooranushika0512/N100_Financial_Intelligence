@@ -1,13 +1,15 @@
-import streamlit as st
 import pandas as pd
-
+import streamlit as st
 from utils.db import (
+    get_companies,
     get_latest_ratios,
     get_market_cap_latest,
     get_sectors,
-    get_companies,
 )
+
+
 def load_data():
+    """Load and merge latest financial ratios, market cap, sectors, and company metadata."""
 
     ratios = get_latest_ratios()
     market = get_market_cap_latest()
@@ -19,8 +21,7 @@ def load_data():
     sectors = sectors.drop(columns=["id"], errors="ignore")
 
     df = (
-        ratios
-        .merge(
+        ratios.merge(
             market,
             on="company_id",
             how="left",
@@ -54,28 +55,26 @@ def load_data():
         errors="coerce",
     )
 
-    df["fcf_yield_pct"] = (
-        df["free_cash_flow_cr"]
-        / df["market_cap_crore"]
-    ) * 100
+    df["fcf_yield_pct"] = (df["free_cash_flow_cr"] / df["market_cap_crore"]) * 100
 
     return df
+
+
 def company_selector(df):
+    """Render a dropdown select box for choosing a company ID."""
 
     return st.selectbox(
         "Select Company",
         sorted(df["company_id"].unique()),
     )
+
+
 def calculate_flag(company_row, df):
+    """Calculate the valuation flag and sector median P/E ratio for a given company."""
 
     sector = company_row["broad_sector"]
 
-    sector_pe = (
-        df[
-            df["broad_sector"] == sector
-        ]["pe_ratio"]
-        .median()
-    )
+    sector_pe = df[df["broad_sector"] == sector]["pe_ratio"].median()
 
     pe = company_row["pe_ratio"]
 
@@ -90,7 +89,10 @@ def calculate_flag(company_row, df):
 
     else:
         return "🟡 Fair", sector_pe
+
+
 def valuation_dashboard(company_row, sector_pe, flag):
+    """Render key valuation metrics and company details in the Streamlit interface."""
 
     c1, c2, c3, c4 = st.columns(4)
 
@@ -124,7 +126,10 @@ def valuation_dashboard(company_row, sector_pe, flag):
         company_row.to_frame().T,
         width="stretch",
     )
+
+
 def show():
+    """Display the Valuation Dashboard Streamlit page."""
 
     st.title("💹 Valuation Dashboard")
 
@@ -132,9 +137,7 @@ def show():
 
     company = company_selector(df)
 
-    row = df[
-        df["company_id"] == company
-    ].iloc[0]
+    row = df[df["company_id"] == company].iloc[0]
 
     flag, sector_pe = calculate_flag(
         row,
@@ -146,4 +149,3 @@ def show():
         sector_pe,
         flag,
     )
-    

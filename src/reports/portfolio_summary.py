@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
@@ -24,29 +23,19 @@ styles = getSampleStyleSheet()
 
 
 def generate_portfolio_summary():
+    """Generate a PDF portfolio summary report containing key metrics, top ROE companies, and sector distribution charts."""
 
     companies = get_companies()
     sectors = get_sectors()
     ratios = get_latest_ratios()
 
-    # Keep latest ratio per company
-    ratios = (
-        ratios.sort_values("year")
-        .drop_duplicates(subset="company_id", keep="last")
+    ratios = ratios.sort_values("year").drop_duplicates(
+        subset="company_id", keep="last"
     )
 
-    df = companies.merge(
-        sectors,
-        left_on="id",
-        right_on="company_id",
-        how="left"
-    )
+    df = companies.merge(sectors, left_on="id", right_on="company_id", how="left")
 
-    df = df.merge(
-        ratios,
-        on="company_id",
-        how="left"
-    )
+    df = df.merge(ratios, on="company_id", how="left")
 
     output_dir = Path("reports")
     output_dir.mkdir(exist_ok=True)
@@ -78,61 +67,55 @@ def generate_portfolio_summary():
 
     table = Table(summary)
 
-    table.setStyle(TableStyle([
-        ("BACKGROUND", (0,0), (-1,0), colors.lightblue),
-        ("GRID", (0,0), (-1,-1), 0.5, colors.black),
-        ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
-        ("BOTTOMPADDING", (0,0), (-1,0), 8),
-    ]))
+    table.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, 0), colors.lightblue),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("BOTTOMPADDING", (0, 0), (-1, 0), 8),
+            ]
+        )
+    )
 
     story.append(table)
-    story.append(Spacer(1,0.3*inch))
+    story.append(Spacer(1, 0.3 * inch))
 
-    story.append(
-        Paragraph(
-            "<b>Top 10 Companies by ROE</b>",
-            styles["Heading2"]
-        )
-    )
+    story.append(Paragraph("<b>Top 10 Companies by ROE</b>", styles["Heading2"]))
 
-    top = (
-        df.sort_values(
-            "return_on_equity_pct",
-            ascending=False
-        )
-        .head(10)
-    )
+    top = df.sort_values("return_on_equity_pct", ascending=False).head(10)
 
-    top_table = [["Company","Sector","ROE"]]
+    top_table = [["Company", "Sector", "ROE"]]
 
     for _, row in top.iterrows():
 
-        top_table.append([
-            row["company_name"],
-            row["broad_sector"],
-            f"{row['return_on_equity_pct']:.2f}"
-        ])
+        top_table.append(
+            [
+                row["company_name"],
+                row["broad_sector"],
+                f"{row['return_on_equity_pct']:.2f}",
+            ]
+        )
 
     t = Table(top_table)
 
-    t.setStyle(TableStyle([
-        ("BACKGROUND",(0,0),(-1,0),colors.lightgrey),
-        ("GRID",(0,0),(-1,-1),0.5,colors.black),
-        ("FONTNAME",(0,0),(-1,0),"Helvetica-Bold"),
-    ]))
+    t.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ]
+        )
+    )
 
     story.append(t)
 
-    story.append(Spacer(1,0.35*inch))
+    story.append(Spacer(1, 0.35 * inch))
 
-    # Sector chart
-    sector_counts = (
-        df["broad_sector"]
-        .value_counts()
-        .sort_values(ascending=False)
-    )
+    sector_counts = df["broad_sector"].value_counts().sort_values(ascending=False)
 
-    plt.figure(figsize=(8,4))
+    plt.figure(figsize=(8, 4))
     plt.bar(sector_counts.index, sector_counts.values)
     plt.xticks(rotation=45, ha="right")
     plt.ylabel("Companies")
@@ -152,15 +135,14 @@ def generate_portfolio_summary():
     story.append(
         Image(
             str(sector_chart),
-            width=6.5*inch,
-            height=3.5*inch,
+            width=6.5 * inch,
+            height=3.5 * inch,
         )
     )
 
-    story.append(Spacer(1,0.3*inch))
+    story.append(Spacer(1, 0.3 * inch))
 
-    # ROE Histogram
-    plt.figure(figsize=(8,4))
+    plt.figure(figsize=(8, 4))
 
     plt.hist(
         df["return_on_equity_pct"].dropna(),
@@ -186,8 +168,8 @@ def generate_portfolio_summary():
     story.append(
         Image(
             str(roe_chart),
-            width=6.5*inch,
-            height=3.5*inch,
+            width=6.5 * inch,
+            height=3.5 * inch,
         )
     )
 

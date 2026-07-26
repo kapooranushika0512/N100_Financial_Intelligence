@@ -1,0 +1,134 @@
+company_id,company_name,cluster_id,cluster_name,distance_from_centroid
+ABB,Abbott India Ltd,0,Mature Businesses,0.42104113131535803
+ABB,Abbott India Ltd,0,Mature Businesses,0.41137503143699755
+ADANIENSOL,Adani Energy Solutions Ltd,0,Mature Businesses,1.1205893699602403
+ADANIENT,Adani Enterprises Ltd,0,Mature Businesses,0.8913402771253438
+ADANIPOWER,Adani Power Ltd,0,Mature Businesses,0.7699805801123729
+,Adani Total Gas Ltd,0,Mature Businesses,0.4206998075994648
+AMBUJACEM,Ambuja Cements Ltd,0,Mature Businesses,0.5223009418606472
+APOLLOHOSP,"Apollo Hospitals
+Chain of Indian private hospitals",0,Mature Businesses,0.4464508553290169
+ASIANPAINT,"Asian Paints
+Indian Multi-National Paint and Coating Manufacturing Company",0,Mature Businesses,0.253189185310178
+ASIANPAINT,"Asian Paints
+Indian Multi-National Paint and Coating Manufacturing Company",0,Mature Businesses,0.253189185310178
+DMART,Avenue Supermarts Ltd,0,Mature Businesses,0.5728744929718155
+BAJAJ-AUTO,Bajaj Auto Ltd,0,Mature Businesses,0.16039902776772438
+BAJAJ-AUTO,Bajaj Auto Ltd,0,Mature Businesses,0.16039902776772438
+BHEL,"Bharat Heavy Electricals Limited
+",0,Mature Businesses,0.7786136338500778
+BPCL,Bharat Petroleum Corporation Ltd,0,Mature Businesses,0.8017079363228545
+BOSCHLTD,Bosch Ltd,0,Mature Businesses,0.42372582710163426
+BRITANNIA,Britannia Industries Ltd,0,Mature Businesses,0.24085255881470005
+DLF,DLF Ltd,0,Mature Businesses,0.6321408070714635
+DABUR,Dabur India Ltd,0,Mature Businesses,0.33505383591767546
+DIVISLAB,Divis Laboratories Ltd,0,Mature Businesses,0.4964578551800522
+DRREDDY,Dr Reddys Laboratories Ltd,0,Mature Businesses,0.5060394039531185
+EICHERMOT,Eicher Motors Ltd,0,Mature Businesses,0.44668718368300325
+GAIL,GAIL (India) Ltd,0,Mature Businesses,0.37655821544185797
+GODREJCP,Godrej Consumer Products Ltd,0,Mature Businesses,0.431409887736052
+HCLTECH,HCL Technologies Ltd,0,Mature Businesses,0.3489724032036172
+HAVELLS,Havells India Ltd,0,Mature Businesses,0.5138103389568397
+ITC,"ITC Ltd
+",0,Mature Businesses,0.8237491564999567
+IOC,"Indian Oil Corporation
+",0,Mature Businesses,1.3600211231509771
+IRCTC,Indian Railway Catering & Tourism Corporation Ltd,0,Mature Businesses,0.6878810593823663
+NAUKRI,Info Edge (India) Ltd,0,Mature Businesses,0.5252361545326721
+INFY,Infosys Ltd,0,Mature Businesses,0.5304421064596828
+INFY,Infosys Ltd,0,Mature Businesses,0.5304421064596828
+INFY,Infosys Ltd,0,Mature Businesses,0.5304421064596828
+INFY,Infosys Ltd,0,Mature Businesses,0.5304421064596828
+JSWENERGY,JSW Energy Ltd,0,Mature Businesses,1.2187043304195282
+JSWSTEEL,JSW Steel Ltd,0,Mature Businesses,0.5389310493852536
+JINDALSTEL,Jindal Steel & Power Ltd,0,Mature Businesses,0.4618034439875528
+LTIM,LTIMindtree Ltd,0,Mature Businesses,0.3157943672498464
+LT,Larsen & Toubro Ltd,0,Mature Businesses,0.5670357288860601
+LICI,Life Insurance Corporation of India,0,Mature Businesses,0.6946414790163243
+LODHA,Macrotech Developers Ltd,0,Mature Businesses,0.45750428734508114
+M&M,"Mahindra & Mahindra Ltd
+",0,Mature Businesses,0.9418545720219936
+MARUTI,Maruti Suzuki India Ltd,0,Mature Businesses,0.3222873429974535
+NTPC,NTPC Ltd,0,Mature Businesses,0.5289948268319488
+NESTLEIND,Nestle India Ltd,0,Mature Businesses,0.3612274097199865
+ONGC,Oil & Natural Gas Corpn Ltd,0,Mature Businesses,1.4099130122793697
+PIDILITIND,Pidilite Industries Ltd,0,Mature Businesses,0.3647895520843048
+RELIANCE,"Reliance Industries Ltd
+",0,Mature Businesses,1.5421240298142702
+SBILIFE,SBI Life Insurance Company Ltd,0,Mature Businesses,0.8744652357012568
+SBILIFE,SBI Life Insurance Company Ltd,0,Mature Businesses,0.8744652357012568
+SBILIFE,SBI Life Insurance Company Ltd,0,Mature Businesses,0.8744652357012568
+SBILIFE,SBI Life Insurance Company Ltd,0,Mature Businesses,0.8744652357012568
+MOTHERSON,Samvardhana Motherson International Ltd,0,Mature Businesses,0.5091442249609903
+SHREECEM,Shree Cement Ltd,0,Mature Businesses,0.32779205692548224
+SIEMENS,Siemens Ltd,0,Mature Businesses,0.40153348306924186
+,State Bank of India,0,Mature Businesses,0.4206998075994648
+SUNPHARMA,Sun Pharmaceuticals Industries Ltd,0,Mature Businesses,0.3465559109159686
+TVSMOTOR,TVS Motor Company Ltd,0,Mature Businesses,1.3251000380218223
+TCS,Tata Consultancy Services Ltd,0,Mature Businesses,1.7885862847818836
+TCS,Tata Consultancy Services Ltd,0,Mature Businesses,1.7885862847818836
+TCS,Tata Consultancy Services Ltd,0,Mature Businesses,1.7885862847818836
+TCS,Tata Consultancy Services Ltd,0,Mature Businesses,1.7885862847818836
+TATACONSUM,Tata Consumer Products Ltd,0,Mature Businesses,0.40320655732079885
+TATAMOTORS,Tata Motors Ltd,0,Mature Businesses,1.580942184107454
+TATAPOWER,"Tata Power Company Ltd
+",0,Mature Businesses,0.4949366586170569
+TATASTEEL,"Tata Steel Ltd
+",0,Mature Businesses,0.4270892034272112
+TECHM,Tech Mahindra Ltd,0,Mature Businesses,0.4502627060564192
+TECHM,Tech Mahindra Ltd,0,Mature Businesses,0.4502627060564192
+TITAN,"Titan Company Ltd
+",0,Mature Businesses,0.6308998328256998
+TORNTPHARM,Torrent Pharmaceuticals Ltd,0,Mature Businesses,0.5253695317395873
+TRENT,Trent Ltd,0,Mature Businesses,0.34993054508975346
+ADANIGREEN,Adani Green Energy Ltd,1,Highly Leveraged,1.5185314184945349
+AXISBANK,Axis Bank Ltd,1,Highly Leveraged,1.5531287518537222
+BANKBARODA,Bank of Baroda,1,Highly Leveraged,1.8517328743543688
+CANBK,Canara Bank,1,Highly Leveraged,2.450021321148265
+HDFCBANK,HDFC Bank Ltd,1,Highly Leveraged,1.0744393335624036
+HDFCBANK,HDFC Bank Ltd,1,Highly Leveraged,1.0744393335624036
+HDFCBANK,HDFC Bank Ltd,1,Highly Leveraged,1.0744393335624036
+HDFCBANK,HDFC Bank Ltd,1,Highly Leveraged,1.0744393335624036
+ICICIBANK,ICICI Bank Ltd,1,Highly Leveraged,0.7123631037976356
+IRFC,Indian Railway Finance Corporation Ltd,1,Highly Leveraged,1.540875212256603
+BEL,Bharat Electronics Ltd,2,Mature Businesses,0.8316496555126722
+HAL,Hindustan Aeronautics Ltd,2,Mature Businesses,0.8316496555126808
+ADANIPORTS,"Adani Ports & Special Economic Zone Ltd
+",3,Mature Businesses,0.7795198313093349
+ADANIPORTS,"Adani Ports & Special Economic Zone Ltd
+",3,Mature Businesses,0.7795198313093349
+BAJAJHLDNG,Bajaj Holdings & Investment Ltd,3,Mature Businesses,0.6509271747789285
+BHARTIARTL,Bharti Airtel Ltd,3,Mature Businesses,1.4736936610735354
+CIPLA,"Cipla Ltd
+",3,Mature Businesses,0.41442219121441926
+COALINDIA,Coal India Ltd,3,Mature Businesses,0.5693237836284163
+HDFCLIFE,HDFC Life Insurance Company Ltd,3,Mature Businesses,0.9727740721905536
+HEROMOTOCO,"Hero MotoCorp Ltd
+",3,Mature Businesses,0.45288299076593874
+HINDALCO,Hindalco Industries Ltd,3,Mature Businesses,0.4301630338191321
+HINDUNILVR,"Hindustan Unilever Ltd
+",3,Mature Businesses,0.2868871363610397
+ICICIGI,ICICI Lombard General Insurance Company Ltd,3,Mature Businesses,0.5505524584412825
+ICICIPRULI,ICICI Prudential Life Insurance Company Ltd,3,Mature Businesses,1.003358381211069
+INDIGO,Interglobe Aviation Ltd,3,Mature Businesses,1.4852592327431493
+JIOFIN,Jio Financial Services Ltd,3,Mature Businesses,0.476252216329344
+KOTAKBANK,"Kotak Mahindra Bank Ltd
+",3,Mature Businesses,1.2082919346193128
+NHPC,"NHPC Ltd
+",3,Mature Businesses,1.1424705967560165
+POWERGRID,Power Grid Corporation of India Ltd,3,Mature Businesses,0.7930815195133868
+POWERGRID,Power Grid Corporation of India Ltd,3,Mature Businesses,0.7930815195133868
+BAJFINANCE,Bajaj Finance Ltd,4,Highly Leveraged,1.5556528312157485
+BAJAJFINSV,Bajaj Finserv Ltd,4,Highly Leveraged,1.451559323384371
+CHOLAFIN,Cholamandalam Investment & Finance Company Ltd,4,Highly Leveraged,0.9604673024430597
+GRASIM,Grasim Industries Ltd,4,Highly Leveraged,1.4606680027705903
+INDUSINDBK,IndusInd Bank Ltd,4,Highly Leveraged,1.414251846019653
+PFC,Power Finance Corporation Ltd,4,Highly Leveraged,2.731621590593739
+PNB,Punjab National Bank,4,Highly Leveraged,0.7663293286585403
+PNB,Punjab National Bank,4,Highly Leveraged,0.7663293286585403
+PNB,Punjab National Bank,4,Highly Leveraged,0.7663293286585403
+PNB,Punjab National Bank,4,Highly Leveraged,0.7663293286585403
+PNB,Punjab National Bank,4,Highly Leveraged,0.7663293286585403
+RECLTD,REC Ltd,4,Highly Leveraged,2.4706544051562984
+SHRIRAMFIN,"Shriram Finance Ltd
+",4,Highly Leveraged,0.7861609205904954

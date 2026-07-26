@@ -1,153 +1,83 @@
 import sqlite3
+
 import pandas as pd
 
-from src.analytics.ratios import *
 from src.analytics.cashflow_kpis import *
-
-DB = "db/nifty100.db"
-
-
-profit = pd.read_excel(
-    "data/raw/profitandloss.xlsx",
-    header=1
-)
-
-balance = pd.read_excel(
-    "data/raw/balancesheet.xlsx",
-    header=1
-)
-
-cash = pd.read_excel(
-    "data/raw/cashflow.xlsx",
-    header=1
-)
+from src.analytics.ratios import *
 
 
-df = (
-    profit
-    .merge(
-        balance,
-        on=["company_id","year"],
-        how="inner"
-    )
-    .merge(
-        cash,
-        on=["company_id","year"],
-        how="inner"
-    )
-)
+def main():
+    """Calculate financial ratios and populate the database table."""
+    DB = "db/nifty100.db"
 
+    profit = pd.read_excel("data/raw/profitandloss.xlsx", header=1)
 
-rows = []
+    balance = pd.read_excel("data/raw/balancesheet.xlsx", header=1)
 
-for _, r in df.iterrows():
+    cash = pd.read_excel("data/raw/cashflow.xlsx", header=1)
 
-    npm = net_profit_margin(
-        r.net_profit,
-        r.sales
+    df = profit.merge(balance, on=["company_id", "year"], how="inner").merge(
+        cash, on=["company_id", "year"], how="inner"
     )
 
-    opm = operating_profit_margin(
-        r.operating_profit,
-        r.sales
-    )
+    rows = []
 
-    roe = return_on_equity(
-        r.net_profit,
-        r.equity_capital,
-        r.reserves
-    )
+    for _, r in df.iterrows():
 
-    de = debt_to_equity(
-        r.borrowings,
-        r.equity_capital,
-        r.reserves
-    )
+        npm = net_profit_margin(r.net_profit, r.sales)
 
-    icr = interest_coverage(
-        r.operating_profit,
-        r.other_income,
-        r.interest
-    )
+        opm = operating_profit_margin(r.operating_profit, r.sales)
 
-    at = asset_turnover(
-        r.sales,
-        r.total_assets
-    )
+        roe = return_on_equity(r.net_profit, r.equity_capital, r.reserves)
 
-    fcf = free_cash_flow(
-        r.operating_activity,
-        r.investing_activity
-    )
+        de = debt_to_equity(r.borrowings, r.equity_capital, r.reserves)
 
-    capex = capex_intensity(
-        r.investing_activity,
-        r.sales
-    )
+        icr = interest_coverage(r.operating_profit, r.other_income, r.interest)
 
-    rows.append({
+        at = asset_turnover(r.sales, r.total_assets)
 
-        "company_id":r.company_id,
+        fcf = free_cash_flow(r.operating_activity, r.investing_activity)
 
-        "year":r.year,
+        capex = capex_intensity(r.investing_activity, r.sales)
 
-        "net_profit_margin_pct":npm,
+        rows.append(
+            {
+                "company_id": r.company_id,
+                "year": r.year,
+                "net_profit_margin_pct": npm,
+                "operating_profit_margin_pct": opm,
+                "return_on_equity_pct": roe,
+                "debt_to_equity": de,
+                "interest_coverage": icr,
+                "asset_turnover": at,
+                "free_cash_flow_cr": fcf,
+                "capex_cr": capex,
+                "earnings_per_share": r.eps,
+                "book_value_per_share": (
+                    (r.equity_capital + r.reserves) / r.equity_capital
+                    if r.equity_capital > 0
+                    else None
+                ),
+                "dividend_payout_ratio_pct": r.dividend_payout,
+                "total_debt_cr": r.borrowings,
+                "cash_from_operations_cr": r.operating_activity,
+            }
+        )
 
-        "operating_profit_margin_pct":opm,
+    ratio_df = pd.DataFrame(rows)
 
-        "return_on_equity_pct":roe,
+    conn = sqlite3.connect(DB)
 
-        "debt_to_equity":de,
+    conn.execute("DELETE FROM financial_ratios")
 
-        "interest_coverage":icr,
+    ratio_df.to_sql("financial_ratios", conn, if_exists="append", index=False)
 
-        "asset_turnover":at,
+    conn.commit()
 
-        "free_cash_flow_cr":fcf,
+    print(f"Inserted {len(ratio_df)} rows into financial_ratios")
 
-        "capex_cr":capex,
-
-        "earnings_per_share":r.eps,
-
-        "book_value_per_share":
-        (
-            (r.equity_capital+r.reserves)/r.equity_capital
-            if r.equity_capital>0
-            else None
-        ),
-
-        "dividend_payout_ratio_pct":
-        r.dividend_payout,
-
-        "total_debt_cr":
-        r.borrowings,
-
-        "cash_from_operations_cr":
-        r.operating_activity
-
-    })
+    conn.close()
 
 
-ratio_df = pd.DataFrame(rows)
-
-
-conn = sqlite3.connect(DB)
-
-conn.execute(
-    "DELETE FROM financial_ratios"
-)
-
-ratio_df.to_sql(
-    "financial_ratios",
-    conn,
-    if_exists="append",
-    index=False
-)
-
-conn.commit()
-
-print(
-    f"Inserted {len(ratio_df)} rows into financial_ratios"
-)
-
-conn.close()
+if __name__ == "__main__":
+    main()

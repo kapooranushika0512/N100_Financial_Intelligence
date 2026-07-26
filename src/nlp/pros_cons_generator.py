@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import pandas as pd
 
 from src.dashboard.utils.db import get_ratios
@@ -10,19 +11,17 @@ ANALYSIS_FILE = OUTPUT_DIR / "analysis_parsed.csv"
 
 
 def latest_ratios():
+    """Retrieve the most recent financial ratios for each company."""
+
     df = get_ratios()
 
-    latest = (
-        df.sort_values("year")
-        .groupby("company_id")
-        .tail(1)
-        .reset_index(drop=True)
-    )
+    latest = df.sort_values("year").groupby("company_id").tail(1).reset_index(drop=True)
 
     return latest
 
 
 def load_growth_metrics():
+    """Load parsed CAGR and growth metrics filtered by the longest available time period."""
 
     if not ANALYSIS_FILE.exists():
         return pd.DataFrame()
@@ -40,6 +39,8 @@ def load_growth_metrics():
 
 
 def add(items, company, typ, reason, confidence):
+    """Append a structured pro/con insight record to the target list."""
+
     items.append(
         {
             "company_id": company,
@@ -51,6 +52,7 @@ def add(items, company, typ, reason, confidence):
 
 
 def generate():
+    """Generate pros and cons insight evaluation criteria and export the dataset as CSV."""
 
     ratios = latest_ratios()
     growth = load_growth_metrics()
@@ -61,16 +63,10 @@ def generate():
 
         company = r.company_id
 
-        company_growth = growth[
-            growth.company_id == company
-        ]
+        company_growth = growth[growth.company_id == company]
 
         pros = 0
         cons = 0
-
-        # -------------------------
-        # ROE
-        # -------------------------
 
         if r.return_on_equity_pct >= 20:
             add(
@@ -92,10 +88,6 @@ def generate():
             )
             cons += 1
 
-        # -------------------------
-        # Debt
-        # -------------------------
-
         if r.debt_to_equity <= 0.5:
             add(
                 rows,
@@ -115,10 +107,6 @@ def generate():
                 0.90,
             )
             cons += 1
-
-        # -------------------------
-        # Net Profit Margin
-        # -------------------------
 
         if r.net_profit_margin_pct >= 15:
             add(
@@ -140,10 +128,6 @@ def generate():
             )
             cons += 1
 
-        # -------------------------
-        # Operating Margin
-        # -------------------------
-
         if r.operating_profit_margin_pct >= 20:
             add(
                 rows,
@@ -163,10 +147,6 @@ def generate():
                 0.85,
             )
             cons += 1
-
-        # -------------------------
-        # Interest Coverage
-        # -------------------------
 
         if r.interest_coverage >= 5:
             add(
@@ -188,10 +168,6 @@ def generate():
             )
             cons += 1
 
-        # -------------------------
-        # Free Cash Flow
-        # -------------------------
-
         if r.free_cash_flow_cr > 0:
             add(
                 rows,
@@ -212,10 +188,6 @@ def generate():
             )
             cons += 1
 
-        # -------------------------
-        # Asset Turnover
-        # -------------------------
-
         if r.asset_turnover >= 1:
             add(
                 rows,
@@ -226,15 +198,7 @@ def generate():
             )
             pros += 1
 
-        # ==================================================
-        # NLP Growth Metrics (Day 29 Integration)
-        # ==================================================
-
-        # Sales CAGR
-
-        sales = company_growth[
-            company_growth.metric_type == "compounded_sales_growth"
-        ]
+        sales = company_growth[company_growth.metric_type == "compounded_sales_growth"]
 
         if not sales.empty:
 
@@ -259,8 +223,6 @@ def generate():
                     0.90,
                 )
                 cons += 1
-
-        # Profit CAGR
 
         profit = company_growth[
             company_growth.metric_type == "compounded_profit_growth"
@@ -290,11 +252,7 @@ def generate():
                 )
                 cons += 1
 
-        # Historical ROE
-
-        roe = company_growth[
-            company_growth.metric_type == "roe"
-        ]
+        roe = company_growth[company_growth.metric_type == "roe"]
 
         if not roe.empty:
 
@@ -309,10 +267,6 @@ def generate():
                     0.90,
                 )
                 pros += 1
-
-        # ==================================================
-        # Fallback
-        # ==================================================
 
         if pros == 0:
             add(

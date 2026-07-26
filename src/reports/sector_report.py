@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-
+from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.platypus import (
@@ -12,7 +12,6 @@ from reportlab.platypus import (
     Table,
     TableStyle,
 )
-from reportlab.lib import colors
 
 from src.dashboard.utils.db import (
     get_companies,
@@ -24,31 +23,19 @@ styles = getSampleStyleSheet()
 
 
 def generate_sector_report():
+    """Generate PDF sector breakdown reports with summary tables and ROE performance charts."""
 
     companies = get_companies()
     sectors = get_sectors()
     ratios = get_latest_ratios()
 
-    # Keep one latest ratio row per company
-    ratios = (
-        ratios.sort_values("year")
-        .drop_duplicates(subset="company_id", keep="last")
+    ratios = ratios.sort_values("year").drop_duplicates(
+        subset="company_id", keep="last"
     )
 
-    # Merge company + sector
-    df = companies.merge(
-        sectors,
-        left_on="id",
-        right_on="company_id",
-        how="left"
-    )
+    df = companies.merge(sectors, left_on="id", right_on="company_id", how="left")
 
-    # Merge ratios
-    df = df.merge(
-        ratios,
-        on="company_id",
-        how="left"
-    )
+    df = df.merge(ratios, on="company_id", how="left")
 
     output_dir = Path("reports/sector_reports")
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -86,21 +73,22 @@ def generate_sector_report():
         ]
 
         table = Table(table_data)
-        table.setStyle(TableStyle([
-            ("GRID", (0,0), (-1,-1), 0.5, colors.black),
-            ("BACKGROUND", (0,0), (-1,0), colors.lightblue),
-            ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
-        ]))
+        table.setStyle(
+            TableStyle(
+                [
+                    ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.lightblue),
+                    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ]
+            )
+        )
 
         story.append(table)
         story.append(Spacer(1, 0.3 * inch))
 
-        top = sector_df.sort_values(
-            "return_on_equity_pct",
-            ascending=False
-        ).head(10)
+        top = sector_df.sort_values("return_on_equity_pct", ascending=False).head(10)
 
-        plt.figure(figsize=(8,3))
+        plt.figure(figsize=(8, 3))
         plt.bar(top["company_name"], top["return_on_equity_pct"])
         plt.xticks(rotation=45, ha="right")
         plt.ylabel("ROE %")
@@ -110,7 +98,7 @@ def generate_sector_report():
         plt.savefig(chart, dpi=200)
         plt.close()
 
-        story.append(Image(str(chart), width=6.5*inch, height=3*inch))
+        story.append(Image(str(chart), width=6.5 * inch, height=3 * inch))
 
         doc.build(story)
 

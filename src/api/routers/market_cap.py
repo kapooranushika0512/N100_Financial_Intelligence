@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException
 import pandas as pd
+from fastapi import APIRouter, HTTPException
 
 from src.dashboard.utils.db import get_market_cap
 
@@ -10,6 +10,7 @@ router = APIRouter(
 
 
 def clean_df(df):
+    """Replace NaN values with None in a DataFrame for JSON serialization."""
 
     if df is None or df.empty:
         return df
@@ -22,15 +23,11 @@ def clean_df(df):
 
 @router.get("/{ticker}")
 def market_cap_history(ticker: str):
+    """Retrieve historical market capitalization data for a specific company."""
 
     df = clean_df(get_market_cap())
 
-    df = df[
-        df["company_id"]
-        .astype(str)
-        .str.upper()
-        == ticker.upper()
-    ]
+    df = df[df["company_id"].astype(str).str.upper() == ticker.upper()]
 
     if df.empty:
         raise HTTPException(

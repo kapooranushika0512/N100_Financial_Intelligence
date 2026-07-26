@@ -2,6 +2,7 @@ from src.analytics.peer import run
 
 
 def test_peer():
+    """Verify peer analysis execution returns a non-empty DataFrame containing percentile ranks."""
 
     df = run()
 

@@ -1,16 +1,14 @@
 import os
 import sqlite3
 
-OUTPUT_FILES = [
-    "output/screener_output.xlsx",
-    "output/peer_comparison.xlsx"
-]
+OUTPUT_FILES = ["output/screener_output.xlsx", "output/peer_comparison.xlsx"]
 
 RADAR_FOLDER = "reports/radar_charts"
 DB_PATH = "db/nifty100.db"
 
 
 def check_outputs():
+    """Verify the existence of required output files and radar charts directory."""
 
     print("\nChecking generated outputs...\n")
 
@@ -32,13 +30,12 @@ def check_outputs():
 
 
 def check_database():
+    """Check and log the row count for the peer_percentiles database table."""
 
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
-    cur.execute(
-        "SELECT COUNT(*) FROM peer_percentiles"
-    )
+    cur.execute("SELECT COUNT(*) FROM peer_percentiles")
 
     rows = cur.fetchone()[0]
 
@@ -48,6 +45,7 @@ def check_database():
 
 
 def run():
+    """Execute the Sprint 3 output and database review pipeline."""
 
     print("\n========== Sprint 3 Review ==========\n")
 

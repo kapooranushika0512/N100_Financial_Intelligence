@@ -1,17 +1,24 @@
 import sqlite3
-import yaml
+
 import pandas as pd
+import yaml
+
 from src.screener.scoring import calculate_score
+
 DB_PATH = "db/nifty100.db"
 CONFIG_PATH = "config/screener_config.yaml"
 
 
 def load_config():
+    """Load configuration settings from the YAML config file."""
+
     with open(CONFIG_PATH, "r") as f:
         return yaml.safe_load(f)
 
 
 def load_ratios():
+    """Load financial ratios from the SQLite database and calculate financial scores."""
+
     conn = sqlite3.connect(DB_PATH)
 
     df = pd.read_sql(
@@ -29,13 +36,12 @@ def load_ratios():
 
 
 def apply_filters(df, filters):
+    """Filter financial ratios based on configured threshold parameters."""
 
     result = df.copy()
 
     if "return_on_equity_pct" in result.columns:
-        result = result[
-            result["return_on_equity_pct"] >= filters["roe_min"]
-        ]
+        result = result[result["return_on_equity_pct"] >= filters["roe_min"]]
 
     if "debt_to_equity" in result.columns:
         result = result[
@@ -44,19 +50,16 @@ def apply_filters(df, filters):
         ]
 
     if "free_cash_flow_cr" in result.columns:
-        result = result[
-            result["free_cash_flow_cr"] >= filters["free_cash_flow_min"]
-        ]
+        result = result[result["free_cash_flow_cr"] >= filters["free_cash_flow_min"]]
 
     if "asset_turnover" in result.columns:
-        result = result[
-            result["asset_turnover"] >= filters["asset_turnover_min"]
-        ]
+        result = result[result["asset_turnover"] >= filters["asset_turnover_min"]]
 
     return result
 
 
 def add_composite_score(df):
+    """Calculate composite quality scores and sort companies descending by rank."""
 
     df = df.copy()
 
@@ -69,31 +72,21 @@ def add_composite_score(df):
         score += df["asset_turnover"].fillna(0) * 20
 
     if "free_cash_flow_cr" in df.columns:
-        score += (
-            df["free_cash_flow_cr"]
-            .fillna(0)
-            .clip(lower=0)
-            / 100
-        )
+        score += df["free_cash_flow_cr"].fillna(0).clip(lower=0) / 100
 
     df["composite_quality_score"] = score
 
-    return df.sort_values(
-        "composite_quality_score",
-        ascending=False
-    )
+    return df.sort_values("composite_quality_score", ascending=False)
 
 
 def run():
+    """Execute the stock screening workflow and display top results."""
 
     config = load_config()
 
     ratios = load_ratios()
 
-    screened = apply_filters(
-        ratios,
-        config["filters"]
-    )
+    screened = apply_filters(ratios, config["filters"])
 
     screened = add_composite_score(screened)
 

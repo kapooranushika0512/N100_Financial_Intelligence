@@ -1,8 +1,9 @@
-from src.validation.sprint3_review import run
+from src.screener.engine import run
 
 
-def test_sprint3():
+def test_scoring():
+    """Verify that the screening engine output includes composite quality scores."""
 
-    run()
+    df = run()
 
-    assert True
+    assert "composite_quality_score" in df.columns

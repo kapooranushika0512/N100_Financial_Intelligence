@@ -1,18 +1,20 @@
 import os
 import sys
+
 import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from dashboard.utils.db import (
+    get_companies,
     get_latest_ratios,
     get_market_cap_latest,
     get_sectors,
-    get_companies,
 )
 
 
 def load_data():
+    """Load and merge company financial ratios, market cap, sector, and profile datasets."""
 
     ratios = get_latest_ratios()
     market = get_market_cap_latest()
@@ -24,8 +26,7 @@ def load_data():
     sectors = sectors.drop(columns=["id"], errors="ignore")
 
     df = (
-        ratios
-        .merge(
+        ratios.merge(
             market,
             on="company_id",
             how="left",
@@ -48,6 +49,7 @@ def load_data():
 
 
 def calculate_fcf_yield(df):
+    """Calculate the free cash flow yield percentage for each company."""
 
     df["free_cash_flow_cr"] = pd.to_numeric(
         df["free_cash_flow_cr"],
@@ -59,15 +61,13 @@ def calculate_fcf_yield(df):
         errors="coerce",
     )
 
-    df["fcf_yield_pct"] = (
-        df["free_cash_flow_cr"]
-        / df["market_cap_crore"]
-    ) * 100
+    df["fcf_yield_pct"] = (df["free_cash_flow_cr"] / df["market_cap_crore"]) * 100
 
     return df
 
 
 def calculate_sector_pe(df):
+    """Calculate median P/E ratio for each broad sector and merge it into the dataframe."""
 
     df["pe_ratio"] = pd.to_numeric(
         df["pe_ratio"],
@@ -95,6 +95,7 @@ def calculate_sector_pe(df):
 
 
 def assign_flag(df):
+    """Assign valuation assessment flags based on comparison against sector median P/E."""
 
     def flag(row):
 
@@ -122,6 +123,7 @@ def assign_flag(df):
 
 
 def export_results(df):
+    """Export valuation analysis summary to Excel and CSV output files."""
 
     os.makedirs(
         "output",

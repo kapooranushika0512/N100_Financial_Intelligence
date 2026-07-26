@@ -12,12 +12,9 @@ SUMMARY_FILE = OUTPUT_DIR / "summaries.csv"
 
 @st.cache_data
 def load_data():
+    """Load AI pros/cons, recommendations, and summaries data from CSV files."""
 
-    if (
-        not PROS_FILE.exists()
-        or not REC_FILE.exists()
-        or not SUMMARY_FILE.exists()
-    ):
+    if not PROS_FILE.exists() or not REC_FILE.exists() or not SUMMARY_FILE.exists():
         st.error(
             "AI analysis files are missing.\n\n"
             "Please run:\n"
@@ -35,6 +32,7 @@ def load_data():
 
 
 def recommendation_banner(rec):
+    """Render a styled Streamlit banner corresponding to an investment recommendation."""
 
     if rec == "Strong Buy":
         st.success(
@@ -52,9 +50,7 @@ def recommendation_banner(rec):
         )
 
     elif rec == "Sell":
-        st.warning(
-            "🟠 **Sell** — Financial indicators suggest caution."
-        )
+        st.warning("🟠 **Sell** — Financial indicators suggest caution.")
 
     else:
         st.error(
@@ -63,6 +59,7 @@ def recommendation_banner(rec):
 
 
 def show():
+    """Display the AI Investment Insights Streamlit dashboard page."""
 
     st.title("🤖 AI Investment Insights")
 
@@ -78,52 +75,30 @@ def show():
         sorted(rec.company_id.unique()),
     )
 
-    recommendation = rec[
-        rec.company_id == company
-    ].iloc[0]
+    recommendation = rec[rec.company_id == company].iloc[0]
 
-    summary = summaries[
-        summaries.company_id == company
-    ].iloc[0]
+    summary = summaries[summaries.company_id == company].iloc[0]
 
-    ranking = (
-        rec.sort_values(
-            "score",
-            ascending=False,
-        )
-        .reset_index(drop=True)
-    )
+    ranking = rec.sort_values(
+        "score",
+        ascending=False,
+    ).reset_index(drop=True)
 
-    company_rank = (
-        ranking.index[
-            ranking.company_id == company
-        ][0]
-        + 1
-    )
+    company_rank = ranking.index[ranking.company_id == company][0] + 1
 
-    pros_df = pros[
-        (pros.company_id == company)
-        &
-        (pros.type == "Pro")
-    ].sort_values(
+    pros_df = pros[(pros.company_id == company) & (pros.type == "Pro")].sort_values(
         "confidence",
         ascending=False,
     )
 
-    cons_df = pros[
-        (pros.company_id == company)
-        &
-        (pros.type == "Con")
-    ].sort_values(
+    cons_df = pros[(pros.company_id == company) & (pros.type == "Con")].sort_values(
         "confidence",
         ascending=False,
     )
 
     st.divider()
 
-    recommendation_banner(
-        recommendation.recommendation
-    )
+    recommendation_banner(recommendation.recommendation)
 
     st.divider()
 
@@ -141,9 +116,7 @@ def show():
             f"{int(recommendation.confidence * 100)}%",
         )
 
-        st.progress(
-            float(recommendation.confidence)
-        )
+        st.progress(float(recommendation.confidence))
 
     with c3:
         st.metric(
@@ -173,17 +146,14 @@ def show():
 
         if pros_df.empty:
 
-            st.info(
-                "No significant strengths detected."
-            )
+            st.info("No significant strengths detected.")
 
         else:
 
             for _, row in pros_df.head(5).iterrows():
 
                 st.success(
-                    f"**{row.reason}**\n\n"
-                    f"Confidence: {int(row.confidence * 100)}%"
+                    f"**{row.reason}**\n\n" f"Confidence: {int(row.confidence * 100)}%"
                 )
 
     with right:
@@ -192,17 +162,14 @@ def show():
 
         if cons_df.empty:
 
-            st.success(
-                "No major concerns detected."
-            )
+            st.success("No major concerns detected.")
 
         else:
 
             for _, row in cons_df.head(5).iterrows():
 
                 st.error(
-                    f"**{row.reason}**\n\n"
-                    f"Confidence: {int(row.confidence * 100)}%"
+                    f"**{row.reason}**\n\n" f"Confidence: {int(row.confidence * 100)}%"
                 )
 
     st.divider()
@@ -220,27 +187,23 @@ def show():
 
     col1, col2 = st.columns(2)
 
-    with col1:
+    with col1, open(REC_FILE, "rb") as file:
 
-        with open(REC_FILE, "rb") as file:
+        st.download_button(
+            label="⬇️ Download Recommendations",
+            data=file,
+            file_name="recommendations.csv",
+            mime="text/csv",
+        )
 
-            st.download_button(
-                label="⬇️ Download Recommendations",
-                data=file,
-                file_name="recommendations.csv",
-                mime="text/csv",
-            )
+    with col2, open(SUMMARY_FILE, "rb") as file:
 
-    with col2:
-
-        with open(SUMMARY_FILE, "rb") as file:
-
-            st.download_button(
-                label="⬇️ Download AI Summaries",
-                data=file,
-                file_name="summaries.csv",
-                mime="text/csv",
-            )
+        st.download_button(
+            label="⬇️ Download AI Summaries",
+            data=file,
+            file_name="summaries.csv",
+            mime="text/csv",
+        )
 
     st.divider()
 

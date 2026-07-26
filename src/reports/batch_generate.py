@@ -3,6 +3,7 @@ from src.reports.tearsheet import create_tearsheet
 
 
 def generate_all_reports():
+    """Iterate through all company IDs to generate PDF tearsheet reports and log completion status."""
 
     companies = get_all_company_ids()
 
@@ -22,7 +23,7 @@ def generate_all_reports():
 
             success += 1
 
-        except Exception as e:
+        except (ValueError, KeyError, TypeError, OSError, RuntimeError) as e:
 
             print(f"Failed : {company_id}")
 

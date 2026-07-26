@@ -1,14 +1,16 @@
-# Nifty 100 Financial Intelligence Dashboard
+# 📊 Nifty 100 Financial Intelligence Dashboard
 
 ## Overview
 
-The Nifty 100 Financial Intelligence Dashboard is a Streamlit-based analytics platform for exploring financial performance, valuation, sector comparisons, and peer analysis of Nifty 100 companies. The application provides interactive dashboards and financial insights using data stored in SQLite.
+The **Nifty 100 Financial Intelligence Dashboard** is a comprehensive financial analytics platform built using **Python, Streamlit, FastAPI, SQLite, and Plotly**. It enables users to explore the financial performance of Nifty 100 companies through interactive dashboards, stock screening, peer comparison, valuation analysis, sector insights, and downloadable reports.
+
+The project automates financial data processing through an ETL pipeline, stores cleaned data in a SQLite database, exposes REST APIs using FastAPI, and presents insights through an intuitive Streamlit dashboard.
 
 ---
 
 ## Features
 
-- 🏠 Home Dashboard
+- 🏠 Industry Overview Dashboard
 - 🏢 Company Profile
 - 🔎 Stock Screener
 - 👥 Peer Comparison
@@ -17,157 +19,326 @@ The Nifty 100 Financial Intelligence Dashboard is a Streamlit-based analytics pl
 - 💰 Capital Allocation
 - 📄 Annual Reports
 - 📊 Valuation Analysis
+- 🤖 AI Financial Insights
+- 📑 PDF Tearsheet Generation
+- 📥 CSV Export Functionality
+- 🌐 FastAPI REST API
+- 📖 Swagger API Documentation
 
 ---
 
-## Tech Stack
+## Technology Stack
 
-- Python
-- Streamlit
-- Pandas
-- Plotly
-- SQLite
+| Category | Technology |
+|----------|------------|
+| Programming Language | Python 3.11 |
+| Frontend | Streamlit |
+| Backend | FastAPI |
+| Database | SQLite |
+| Data Processing | Pandas, NumPy |
+| Visualizations | Plotly, Matplotlib |
+| API Documentation | OpenAPI / Swagger |
+| Testing | Pytest |
+| Code Formatting | Black |
+| Linting | Ruff |
 
 ---
 
-## Project Structure
+# Project Structure
 
+```text
+N100_Financial_Intelligence/
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── docs/
+│   ├── analyst_guide.pdf
+│   ├── openapi.json
+│   └── acceptance_checklist.pdf
+│
+├── output/
+│   ├── cluster_labels.csv
+│   ├── outlier_report.csv
+│   ├── portfolio_stats.csv
+│   └── final_deliverables/
+│
+├── reports/
+│   ├── tearsheets/
+│   ├── elbow_plot.png
+│   ├── correlation_heatmap.png
+│   └── pytest_report.html
+│
+├── src/
+│   ├── analytics/
+│   ├── api/
+│   ├── dashboard/
+│   ├── etl/
+│   ├── reports/
+│   ├── screener/
+│   └── validation/
+│
+├── tests/
+├── requirements.txt
+└── README.md
 ```
-src/
-├── analytics/
-├── dashboard/
-│   ├── app.py
-│   ├── views/
-│   └── utils/
-├── screener/
-└── validation/
 
-output/
-├── valuation_summary.xlsx
-└── valuation_flags.csv
+---
+
+# Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+cd N100_Financial_Intelligence
+```
+
+Create a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment.
+
+**Windows**
+
+```bash
+.venv\Scripts\activate
+```
+
+**macOS/Linux**
+
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
 ```
 
 ---
 
-## Running the Dashboard
+# Running the ETL Pipeline
+
+Generate the SQLite database from the raw financial datasets.
+
+```bash
+python src/etl/create_database.py
+```
+
+---
+
+# Running the Streamlit Dashboard
+
+Launch the dashboard:
 
 ```bash
 streamlit run src/dashboard/app.py
 ```
 
+The application will open automatically in your browser.
+
 ---
 
-## Dashboard Screens
+# Running the FastAPI Server
 
-### Home
+```bash
+uvicorn src.api.main:app --reload
+```
+
+Server URL:
+
+```
+http://localhost:8000
+```
+
+Swagger Documentation:
+
+```
+http://localhost:8000/docs
+```
+
+OpenAPI Specification:
+
+```
+docs/openapi.json
+```
+
+---
+
+# Running the Test Suite
+
+Execute all automated tests:
+
+```bash
+pytest
+```
+
+Generate HTML report:
+
+```bash
+pytest --html=reports/pytest_report.html
+```
+
+---
+
+# Code Quality
+
+Format the project:
+
+```bash
+black src tests
+```
+
+Run Ruff:
+
+```bash
+ruff check src tests
+```
+
+---
+
+# Dashboard Modules
+
+## 🏠 Home
+
 Provides an overview of the dashboard and navigation.
 
-### Company Profile
-Displays company information, financial ratios, and valuation metrics.
+## 🏢 Company Profile
 
-### Stock Screener
-Allows filtering companies using financial parameters and exporting results as CSV.
+Displays company information, financial statements, financial ratios, valuation metrics, and historical trends.
 
-### Peer Comparison
-Compares companies within the same sector across financial metrics.
+## 🔎 Stock Screener
 
-### Trend Analysis
-Visualizes historical trends for selected financial metrics.
+Filters companies using customizable financial parameters and exports results to CSV.
 
-### Sector Analysis
-Compares companies within a selected sector using interactive bubble charts.
+## 👥 Peer Comparison
 
-### Capital Allocation
-Displays capital allocation metrics and valuation indicators.
+Compares companies within the same industry using financial ratios and interactive charts.
 
-### Annual Reports
-Provides direct access to company annual reports.
+## 📈 Trend Analysis
 
----
+Visualizes historical financial trends for selected companies.
 
-## Generated Outputs
+## 🏭 Sector Analysis
 
-- `output/valuation_summary.xlsx`
-- `output/valuation_flags.csv`
+Compares sector-level performance using interactive charts.
 
----
+## 💰 Capital Allocation
 
-## Sprint 4 Retrospective
+Displays capital allocation metrics, profitability, and valuation indicators.
 
-### UX Decisions
+## 📄 Annual Reports
 
-- Implemented a consistent sidebar navigation.
-- Used Plotly interactive visualizations.
-- Added CSV export functionality for the screener.
-- Limited trend comparison to three metrics for improved readability.
+Provides quick access to company annual reports.
 
-### Data Edge Cases
+## 📊 Valuation Dashboard
 
-- Handled missing financial ratios using appropriate defaults.
-- Removed duplicate company records after merges.
-- Resolved year format inconsistencies across datasets.
-
-### Performance
-
-- Cached frequently accessed data.
-- Optimized joins and filtering for responsive dashboard performance.
-- Company Profile page loads in under three seconds.
-
----
-## Dashboard Screens
-
-### 1. Home Screen
-
-![Home Screen](reports/Screens/Home%20Screen.png)
+Analyzes valuation metrics including P/E, P/B, EPS, ROE, and ROCE.
 
 ---
 
-### 2. Company Profile
+# Generated Outputs
+
+The project generates the following outputs:
+
+- output/cluster_labels.csv
+- output/outlier_report.csv
+- output/portfolio_stats.csv
+- reports/elbow_plot.png
+- reports/correlation_heatmap.png
+- reports/pytest_report.html
+- docs/openapi.json
+- docs/analyst_guide.pdf
+- reports/tearsheets/
+- output/final_deliverables/
+
+---
+
+# Dashboard Screens
+
+## Home
+
+![Home](reports/Screens/Home%20Screen.png)
+
+---
+
+## Company Profile
 
 ![Company Profile](reports/Screens/Company%20Profile.png)
 
 ---
 
-### 3. Stock Screener
+## Stock Screener
 
 ![Stock Screener](reports/Screens/Stock%20Screener.png)
 
 ---
 
-### 4. Peer Comparison
+## Peer Comparison
 
 ![Peer Comparison](reports/Screens/Peer%20Comparison.png)
 
 ---
 
-### 5. Trend Analysis
+## Trend Analysis
 
 ![Trend Analysis](reports/Screens/Trend%20Analysis.png)
 
 ---
 
-### 6. Sector Analysis
+## Sector Analysis
 
 ![Sector Analysis](reports/Screens/Sector%20Analysis.png)
 
 ---
 
-### 7. Capital Allocation
+## Capital Allocation
 
 ![Capital Allocation](reports/Screens/Capital%20Allocation.png)
 
 ---
 
-### 8. Annual Reports
+## Annual Reports
 
 ![Annual Reports](reports/Screens/Annual%20Reports.png)
 
 ---
 
-### 9. Valuation Dashboard
+## Valuation Dashboard
 
 ![Valuation Dashboard](reports/Screens/Valuation%20Dashboard.png)
-## Author
 
-Anushika Kapoor
-Bluestock Data Science Internship
+---
+
+# Project Deliverables
+
+- ✅ Interactive Streamlit Dashboard
+- ✅ FastAPI Backend (16 REST API Endpoints)
+- ✅ SQLite Database
+- ✅ ETL Pipeline
+- ✅ Company Financial Analysis
+- ✅ Stock Screener
+- ✅ Peer Comparison
+- ✅ Sector Analysis
+- ✅ Valuation Dashboard
+- ✅ AI Financial Insights
+- ✅ PDF Tearsheet Generation
+- ✅ CSV Export
+- ✅ Automated Testing
+- ✅ OpenAPI Documentation
+- ✅ Analyst Guide
+- ✅ Final Deliverables Archive
+
+---
+
+# Author
+
+**Anushika Kapoor**  
+**Bluestock Data Science Internship**  
+B.Tech Computer Science Engineering
